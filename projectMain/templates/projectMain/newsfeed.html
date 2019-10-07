@@ -1,0 +1,232 @@
+{% extends 'projectMain/base.html' %}
+
+{% block content %}
+
+    <section class="content" style="padding:0px;">
+        <div class="container-fluid">
+
+            <!-- Widgets -->
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="card profile-card">
+					
+                        <div class="profile-header" style='padding-top:100px;background-image: url("../images/cover.jpg"); background-position: 50% 50%; /* Center the image */background-repeat: no-repeat; /* Do not repeat the image */background-size: cover; /* Resize the background image to cover the entire container */'>
+						</div>
+						<div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+								<div class="profile-body">
+									<div class="image-area">
+                                        {% load static %}
+										<img src="{% static 'projectMain/images/male.png' %}" class="doctor_dp" width="150px" height="150px" title="" />
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+								<div class="profile-footer">
+									<ul>
+										<li style="padding:0px;margin:0px;line-height:7pt;">
+											<h3 class="name">{NAME}</h3>
+											<p class="email">{EMAIL}</p>
+											<p class="font-bold col-teal">Internal Medicine Specialist</p>
+										</li>
+									</ul>
+								</div>
+								
+								
+							</div>
+
+						</div>
+                    </div>
+
+                </div>
+			
+			
+                <!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="info-box-3 bg-pink hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">playlist_add_check</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">QUEUE</div>
+                            <div class="number count-to" data-from="0" data-to="125" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="info-box-3 bg-cyan hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">event_note</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">APPOINTMENT</div>
+                            <div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="info-box-3 bg-light-green hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">people</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">PATIENT</div>
+                            <div class="number count-to" data-from="0" data-to="243" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                    <div class="info-box-3 bg-orange hover-expand-effect">
+                        <div class="icon">
+                            <i class="material-icons">person_add</i>
+                        </div>
+                        <div class="content">
+                            <div class="text">NEW VISITORS</div>
+                            <div class="number count-to" data-from="0" data-to="1225" data-speed="1000" data-fresh-interval="20"></div>
+                        </div>
+                    </div>
+                </div>-->
+            </div>
+            <!-- #END# Widgets -->
+            <!-- CPU Usage -->
+            <div class="row clearfix">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                        <div class="header">
+                            <h2>
+                                 <i class="material-icons">library_books</i> News Feed <small></small>
+                            </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <i class="material-icons">more_vert</i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="javascript:void(0);">Another action</a></li>
+                                        <li><a href="javascript:void(0);">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+                                       <div class="panel panel-default panel-post">
+                                            <div class="panel-heading">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img src="../images/male.png" class="doctor_dp"  />
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="#" class="name">{name}</a>
+                                                        </h4>
+                                                        Shared publicly - 26 Oct 2018
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="post">
+                                                    <div class="post-heading">
+                                                        <p>I am a very simple wall post. I am good at containing <a href="#">#small</a> bits of <a href="#">#information</a>. I require little more information to use effectively.</p>
+                                                    </div>
+                                                    <div class="post-content">
+                                                        <img src="../images/profile-post-image.jpg" class="img-responsive" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <ul>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="material-icons">thumb_up</i>
+                                                            <span>12 Likes</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="material-icons">comment</i>
+                                                            <span>5 Comments</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="material-icons">share</i>
+                                                            <span>Share</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" placeholder="Type a comment" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="panel panel-default panel-post">
+                                            <div class="panel-heading">
+                                                <div class="media">
+                                                    <div class="media-left">
+                                                        <a href="#">
+                                                            <img src="../images/male.png" class="doctor_dp"  />
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">
+                                                            <a href="#" class="name">Ryan Tipon, M.D., D.P.C.P</a>
+                                                        </h4>
+                                                        Shared publicly - 01 Oct 2018
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="post">
+                                                    <div class="post-heading">
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                                    </div>
+                                                    <div class="post-content">
+                                                        <iframe width="100%" height="360" src="https://www.youtube.com/embed/10r9ozshGVE" frameborder="0" allowfullscreen=""></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <ul>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="material-icons">thumb_up</i>
+                                                            <span>125 Likes</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="material-icons">comment</i>
+                                                            <span>8 Comments</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#">
+                                                            <i class="material-icons">share</i>
+                                                            <span>Share</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="form-group">
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" placeholder="Type a comment" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #END# CPU Usage -->
+     </section>
+
+ {% endblock content %}

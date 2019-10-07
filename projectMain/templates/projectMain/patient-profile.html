@@ -1,0 +1,2845 @@
+﻿<?php
+date_default_timezone_set("Asia/Manila");
+include_once("includes/DBOperation-Doctor.php");	
+$obj2 = new DoctorDBOperation();
+?><!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>HIP-MD - Patient Profile</title>
+    <!-- Favicon-->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="../plugins/bootstrap/css/bootstrap.css?<?php echo md5_file("plugins/bootstrap/css/bootstrap.css");?>" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="../plugins/node-waves/waves.css?<?php echo md5_file("plugins/node-waves/waves.css");?>" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="../plugins/animate-css/animate.css?<?php echo md5_file("plugins/animate-css/animate.css");?>" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="../../plugins/bootstrap-select/css/bootstrap-select.css?<?php echo md5_file("plugins/bootstrap-select/css/bootstrap-select.css");?>" rel="stylesheet" />
+	
+    <!-- JQuery DataTable Css -->
+	<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.1/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/1.0.7/css/responsive.dataTables.min.css">
+
+     <!-- JQuery DataTable Js -->
+	<script src="../plugins/jquery/jquery.min.js?<?php echo md5_file("plugins/jquery/jquery.min.js");?>"></script>
+	<script type="text/javascript" src="http://cdn.datatables.net/1.10.1/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
+	
+    <!-- Custom Css -->
+    <link href="../css/style.css?<?php echo md5_file("css/style.css");?>" rel="stylesheet">
+
+    <!-- HIP-MD Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="../css/themes/all-themes.css?<?php echo md5_file("css/themes/all-themes.css");?>" rel="stylesheet" />
+	
+	
+	
+</head>
+
+<body class="theme-light-blue">
+    <!-- Page Loader -->
+    <div class="page-loader-wrapper">
+        <div class="loader">
+            <div class="preloader">
+                <div class="spinner-layer pl-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+            <p>Please wait...</p>
+        </div>
+    </div>
+    <!-- #END# Page Loader -->
+    <!-- Overlay For Sidebars -->
+    <div class="overlay"></div>
+    <!-- #END# Overlay For Sidebars -->
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <div class="search-icon">
+            <i class="material-icons">search</i>
+        </div>
+        <input type="text" placeholder="START TYPING...">
+        <div class="close-search">
+            <i class="material-icons">close</i>
+        </div>
+    </div>
+    <!-- #END# Search Bar -->
+    <!-- Top Bar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+                <a href="javascript:void(0);" class="bars"></a>
+				<a class="navbar-brand" href="javascript:void(0);"><img style="width:119px;height:60px;margin-top:-20px;-webkit-filter: drop-shadow(1px 1px 0 white);drop-shadow(-1px -1px 0 white);filter: drop-shadow(0px 0px 0 white) drop-shadow(-1px -1px 0 white);" src="images/Logo.png" alt=""></a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Call Search -->
+                    <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
+                    <!-- #END# Call Search -->
+                    <!-- Notifications -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">notifications</i>
+                            <span class="label-count">7</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">NOTIFICATIONS</li>
+                            <li class="body">
+                                <ul class="menu">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">person_add</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>12 new patients added</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 14 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-cyan">
+                                                <i class="material-icons">add_shopping_cart</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>4 payment made</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 22 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-red">
+                                                <i class="material-icons">delete_forever</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy Doe</b> deleted account</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-orange">
+                                                <i class="material-icons">mode_edit</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy</b> changed name</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 2 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-blue-grey">
+                                                <i class="material-icons">comment</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> commented your post</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 4 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">cached</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> updated status</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <div class="icon-circle bg-purple">
+                                                <i class="material-icons">settings</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>Settings updated</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> Yesterday
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- #END# Notifications -->
+                    <!-- Tasks -->
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                            <i class="material-icons">flag</i>
+                            <span class="label-count">9</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">TASKS</li>
+                            <li class="body">
+                                <ul class="menu tasks">
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Footer display issue
+                                                <small>32%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 32%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Make new buttons
+                                                <small>45%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-cyan" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Create new dashboard
+                                                <small>54%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-teal" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 54%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Solve transition issue
+                                                <small>65%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-orange" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 65%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);">
+                                            <h4>
+                                                Answer GitHub questions
+                                                <small>92%</small>
+                                            </h4>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-purple" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 92%">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="footer">
+                                <a href="javascript:void(0);">View All Tasks</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- #END# Tasks -->
+                    <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- #Top Bar -->
+    <section>
+        <!-- Left Sidebar -->
+        <aside id="leftsidebar" class="sidebar">
+            <!-- User Info -->
+            <div class="user-info">
+                <div class="image">
+                    <img src="../images/male.png" class="doctor_dp" width="48" height="48" title="{TITLE}" />
+                </div>
+                <div class="info-container">
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{NAME}</div>
+                    <div class="email" title="{EMAIL}">{EMAIL}</div>
+                    <div class="btn-group user-helper-dropdown">
+                        <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- #User Info -->
+            <!-- Menu -->
+            <div class="menu">
+                <ul class="list">
+                    <li class="header">HIP-MD</li>
+                    <li>
+                        <a href="dashboard.php">
+                            <i class="material-icons">home</i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="appointment.php">
+                            <i class="material-icons">event_note</i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="patient.php">
+                            <i class="material-icons">people</i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" class="menu-toggle">
+                            <i class="material-icons">widgets</i>
+                            <span>Billing</span>
+                        </a>
+                        <ul class="ml-menu">
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Cards</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="">Basic</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Colored</a>
+                                    </li>
+                                    <li>
+                                        <a href="">No Header</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="menu-toggle">
+                                    <span>Infobox</span>
+                                </a>
+                                <ul class="ml-menu">
+                                    <li>
+                                        <a href="">Infobox-1</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Infobox-2</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Infobox-3</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Infobox-4</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Infobox-5</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+ 
+                </ul>
+            </div>
+            <!-- #Menu -->
+            <!-- Footer -->
+            <div class="legal">
+                <div class="copyright">
+                    &copy; 2018 - 2019 <a href="javascript:void(0);">HIP-MD</a>. All rights reserved.
+                </div>
+                <div class="version">
+                    <b>Version: </b> 2.0.0
+                </div>
+            </div>
+            <!-- #Footer -->
+        </aside>
+        <!-- #END# Left Sidebar -->
+        <!-- Right Sidebar -->
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active"><a href="#skins" data-toggle="tab">SKINS</a></li>
+                <?php /*<li role="presentation"><a href="#settings" data-toggle="tab">SETTINGS</a></li>*/?>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active in active" id="skins">
+                    <ul class="demo-choose-skin">
+                        <li data-theme="red">
+                            <div class="red"></div>
+                            <span>Red</span>
+                        </li>
+                        <li data-theme="pink">
+                            <div class="pink"></div>
+                            <span>Pink</span>
+                        </li>
+                        <li data-theme="purple">
+                            <div class="purple"></div>
+                            <span>Purple</span>
+                        </li>
+                        <li data-theme="deep-purple">
+                            <div class="deep-purple"></div>
+                            <span>Deep Purple</span>
+                        </li>
+                        <li data-theme="indigo">
+                            <div class="indigo"></div>
+                            <span>Indigo</span>
+                        </li>
+                        <li data-theme="blue">
+                            <div class="blue"></div>
+                            <span>Blue</span>
+                        </li>
+                        <li data-theme="light-blue" class="active">
+                            <div class="light-blue"></div>
+                            <span>Light Blue</span>
+                        </li>
+                        <li data-theme="cyan">
+                            <div class="cyan"></div>
+                            <span>Cyan</span>
+                        </li>
+                        <li data-theme="teal">
+                            <div class="teal"></div>
+                            <span>Teal</span>
+                        </li>
+                        <li data-theme="green">
+                            <div class="green"></div>
+                            <span>Green</span>
+                        </li>
+                        <li data-theme="light-green">
+                            <div class="light-green"></div>
+                            <span>Light Green</span>
+                        </li>
+                        <li data-theme="lime">
+                            <div class="lime"></div>
+                            <span>Lime</span>
+                        </li>
+                        <li data-theme="yellow">
+                            <div class="yellow"></div>
+                            <span>Yellow</span>
+                        </li>
+                        <li data-theme="amber">
+                            <div class="amber"></div>
+                            <span>Amber</span>
+                        </li>
+                        <li data-theme="orange">
+                            <div class="orange"></div>
+                            <span>Orange</span>
+                        </li>
+                        <li data-theme="deep-orange">
+                            <div class="deep-orange"></div>
+                            <span>Deep Orange</span>
+                        </li>
+                        <li data-theme="brown">
+                            <div class="brown"></div>
+                            <span>Brown</span>
+                        </li>
+                        <li data-theme="grey">
+                            <div class="grey"></div>
+                            <span>Grey</span>
+                        </li>
+                        <li data-theme="blue-grey">
+                            <div class="blue-grey"></div>
+                            <span>Blue Grey</span>
+                        </li>
+                        <li data-theme="black">
+                            <div class="black"></div>
+                            <span>Black</span>
+                        </li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="settings">
+                    <div class="demo-settings">
+                        <p>GENERAL SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Report Panel Usage</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Email Redirect</span>
+                                <div class="switch">
+                                    <label><input type="checkbox"><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>SYSTEM SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Notifications</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Auto Updates</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                        <p>ACCOUNT SETTINGS</p>
+                        <ul class="setting-list">
+                            <li>
+                                <span>Offline</span>
+                                <div class="switch">
+                                    <label><input type="checkbox"><span class="lever"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <span>Location Permission</span>
+                                <div class="switch">
+                                    <label><input type="checkbox" checked><span class="lever"></span></label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- #END# Right Sidebar -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="card profile-card">
+                        <div class="profile-header" style='padding-top:100px;background-image: url("../images/cover.jpg"); background-position: 50% 50%; /* Center the image */background-repeat: no-repeat; /* Do not repeat the image */background-size: cover; /* Resize the background image to cover the entire container */'>
+						</div>
+						<div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+								<div class="profile-body">
+									<div class="image-area">
+										<img src="../images/male.png" class="display_picture" width="150px" height="150px" alt="Resty C. Mangulabnan" />
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">
+								<div class="profile-footer">
+									<ul>
+										<li style="padding:0px;margin:0px;line-height:7pt;">
+											<h3 class="pname">{PNAME}</h3>
+											<p class="pemail">{PEMAIL}</p>
+											<p class="poccupation font-bold col-teal">s&nbsp;</p>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+                    </div>
+
+                </div>
+               <div class="col-xs-12 col-sm-3">
+                    <div class="card card-about-me">
+                        <div class="header">
+                            <h2>ABOUT ME</h2>
+                        </div>
+                        <div class="body">
+                            <ul>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">info_outline</i>
+                                        Basic Information
+                                    </div>
+                                    <div class="content basic-info">
+									
+										<div style="padding-left:15px;">
+											<div class="row">
+											<label>Birthday</label>
+											<span>{BDAY}</span>
+											</div>
+											<div class="row">
+											<label>Age</label>
+											<span>{AGE}</span>
+											</div>
+											<div class="row">
+											<label>Gender</label>
+											<span>{GENDER}</span>
+											</div>
+											<div class="row">
+											<label>Blood Type</label>
+											<span>{BTYPE}</span>
+											</div>
+											<div class="clearfix"></div><br>
+											<div class="row">
+											<label>Religion</label>
+											<span>{RELIGION}</span>
+											</div>
+											<div class="row">
+											<label>Civil Status</label>
+											<span>{STATUS}</span>
+											</div>
+										</div>
+								
+	                                </div>
+                                </li>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">playlist_add_check</i>
+                                        HMO
+                                    </div>
+                                    <div class="content hmo">
+                                        <span class="label bg-red">Healthway Medi-access</span>
+                                        <span class="label bg-teal">Health Plan Philippines, Inc. (hppi)</span>
+                                        <span class="label bg-blue">Health Maintenance Inc. (hmi)</span>
+                                        <span class="label bg-amber">Fortune Medicare, Inc.</span>								
+									</div>
+                                </li>
+                                   <li>
+                                    <div class="title">
+                                        <i class="material-icons">contact_phone</i>
+                                        Contact Information
+                                    </div>
+                                    <div class="content contact-info">
+										<div style="padding-left:15px;">
+											<div class="row">
+												<label><i class="material-icons">location_on</i>Address</label>
+												<span>{ADDRESS}</span>
+											</div>
+											<div class="row">
+												<label><i class="material-icons">smartphone</i>Mobile No.</label>
+												<span>{MOBILE}</span>
+											</div>
+											<div class="row">
+												<label><i class="material-icons">local_phone</i>Tel. No.</label>
+												<span>{TELEPHONE}</span>
+											</div>
+										</div>
+                                    </div>									
+                                </li>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">work</i>
+                                        Employment Information
+                                    </div>
+                                    <div class="content occupation">
+
+										<div style="padding-left:15px;">
+											<div class="row">
+											<label>Occupation</label>
+											<span>{OCCUPATION}</span>
+											</div>
+											<div class="row">
+											<label>Employer's Name</label>
+											<span>{EMPLOYERSNAME}</span>
+											</div>
+											<div class="row">
+											<label>Employer's Address</label>
+											<span>{EMPLOYERSADDRESS}</span>
+											</div>
+											<div class="row">
+											<label>Employer's Phone No</label>
+											<span>{EMPLPYERSPHONENO}</span>
+											</div>
+										</div>
+										
+                                    </div> 									
+                                </li>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">phone_in_talk</i>
+                                        Emergency Contact Information
+                                    </div>
+                                    <div class="content emergency">
+
+										<div style="padding-left:15px;">
+											<div class="row">
+											<label>Name:</label>
+											<span>{EMERGENCYNAME}</span>
+											</div>
+											<div class="row">
+											<label>Address:</label>
+											<span>{ADDRESS}</span>
+											</div>
+											<div class="row">
+											<label>Contact No.:</label>
+											<span>{EMERGENCYCONTACTNO}</span>
+											</div>
+											<div class="row">
+											<label>Relationship:</label>
+											<span>{RELATIONSHIP}</span>
+											</div>
+										</div>
+										
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">person_pin</i>
+                                        Physician Information
+                                    </div>
+                                    <div class="content physician">
+										<div style="padding-left:15px;">
+											<div class="row">
+											<label>Referring Physician:</label>
+											<span>{REFERRINPHYSICIAN}</span>
+											</div>
+											<div class="row">
+											<label>Primary Physician:</label>
+											<span>{PRIMARYPHYSICIAN}</span>
+											</div>
+											<div class="row">
+											<label>Other Physician:</label>
+											<span>{OTHERPHYSICIAN}</span>
+											</div>
+										</div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="title">
+                                        <i class="material-icons">notes</i>
+                                        Description
+                                    </div>
+                                    <div class="content">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>			   
+			   
+			   
+			   
+               <div class="col-xs-12 col-sm-9">
+                    <div class="card">
+                        <div class="body">
+                            <div>						
+								<a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">Tabs</a>
+                                <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal" role="tablist">
+                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Medical Profile</a></li>
+                                    <li role="presentation" class="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Medical Notes</a></li>
+                                    <li role="presentation"><a href="#records" aria-controls="records" role="tab" data-toggle="tab">Medical Records</a></li>
+                                    <li role="presentation"><a href="#change_password_settings" aria-controls="settings" role="tab" data-toggle="tab">Change Password</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane fade" id="profile">
+										<div class="body">
+											<div class="row clearfix">
+												<div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+													<div class="panel-group full-body" id="accordion_19" role="tablist" aria-multiselectable="true">
+														<div class="panel panel-col-pink">
+															<div class="panel-heading" role="tab" id="headingOne_19">
+																<h4 class="panel-title">
+																	<a role="button" data-toggle="collapse" href="#collapseOne_19" aria-expanded="true" aria-controls="collapseOne_19" class="">
+																		<i class="material-icons">pan_tool</i> Allergy
+																	</a>
+																</h4>
+															</div>
+															<div id="collapseOne_19" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne_19" aria-expanded="true" style="">
+																<div class="panel-body">
+																	No Records Found.
+																</div>
+															</div>
+														</div>
+														<div class="panel panel-col-cyan">
+															<div class="panel-heading" role="tab" id="headingTwo_19">
+																<h4 class="panel-title">
+																	<a class="" role="button" data-toggle="collapse" href="#collapseTwo_19" aria-expanded="true" aria-controls="collapseTwo_19">
+																		<i class="material-icons">smoking_rooms</i> Smoking History
+																	</a>
+																</h4>
+															</div>
+															<div id="collapseTwo_19" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo_19" aria-expanded="true" style="">
+																<div class="panel-body">
+																	No Records Found.
+																</div>
+															</div>
+														</div>
+														<div class="panel panel-col-teal">
+															<div class="panel-heading" role="tab" id="headingThree_19">
+																<h4 class="panel-title">
+																	<a class="" role="button" data-toggle="collapse" href="#collapseThree_19" aria-expanded="true" aria-controls="collapseThree_19">
+																		<i class="material-icons">event</i> Sexual History
+																	</a>
+																</h4>
+															</div>
+															<div id="collapseThree_19" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree_19" aria-expanded="true" style="">
+																<div class="panel-body">
+																	No Records Found.
+																</div>
+															</div>
+														</div>
+														<div class="panel panel-col-orange">
+															<div class="panel-heading" role="tab" id="headingFour_19">
+																<h4 class="panel-title">
+																	<a class="" role="button" data-toggle="collapse" href="#collapseFour_19" aria-expanded="true" aria-controls="collapseFour_19">
+																		<i class="material-icons">group</i> Family History
+																	</a>
+																</h4>
+															</div>
+															<div id="collapseFour_19" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingFour_19" aria-expanded="true" style="">
+																<div class="panel-body">
+																	No Records Found.
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>											
+									</div>
+                                    <div role="tabpanel" class="tab-pane fade in active" id="notes">
+										<div class="col-xs-12 col-sm-12">
+										
+										<button type="button" class="btn bg-blue btn-xs waves-effect" data-toggle="modal" data-target="#EMR"><i class="material-icons">queue</i> NEW ENCOUNTER</button>
+										<div class="clearfix"></div><br>
+											<a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">Tabs</a>
+											<ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal" role="tablist">
+												<li role="presentation" class="active"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">List</a></li>
+												<li role="presentation"><a href="#prescription" aria-controls="prescription" role="tab" data-toggle="tab">Prescription</a></li>
+												
+											</ul>
+										</div>
+										<div class="body">
+											<div class="row clearfix">
+												<div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+													<!-- Tab panes -->
+													<div class="tab-content">
+														<div class="tab-pane fade active in" id="list">													
+														<table id="SOAP" class="display" cellspacing="0" width="100%">
+															<thead>
+																<tr>
+																	<th>Clinic</th>
+																	<th>Subjective</th>
+																	<th>Objective</th>
+																	<th>Assessment</th>
+																	<th>Plan</th>
+																	<th>Notes</th>
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														</table>
+
+														</div>
+														<div class="tab-pane fade" id="prescription">
+															<table id="PRESCRIPTION" class="display" cellspacing="0" width="100%">
+																<thead>
+																	<tr>
+																		<th>Clinic</th>
+																		<th>Prescription</th>
+																	</tr>
+																</thead>
+																<tbody>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												
+												</div>
+											</div>
+										</div>											
+									</div>
+            <!-- EMR MODAL-->
+            <div class="modal fade" id="EMR" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Choose (EMR) Electronic Medical Record </h4>
+                        </div>
+                        <div class="modal-body clearfix">
+							<!--SOAP-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_SOAP" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i>
+									</div>
+									<div class="content">
+										<div class="text">SOAP</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							</div>
+							<!--TEXT/NOTES-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_NOTES" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i>
+									</div>
+									<div class="content">
+										<div class="text">TEXT/NOTES</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							</div>
+							<!--PRESCRIPTION-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_PRESCRIPTION" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i><!--<img src="https://www.hips-md.com/common/images/prescription.png" height="50px">-->
+									</div>
+									<div class="content">
+										<div class="text">PRESCRIPTION</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							
+							</div>
+							<!--LAB REQUEST-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_LABREQUEST" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i>
+									</div>
+									<div class="content">
+										<div class="text">LAB REQUEST</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							</div>
+							<!--MEDICAL CERTIFICATE-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_MEDCERT" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i>
+									</div>
+									<div class="content">
+										<div class="text">CERTIFICATE</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							</div>
+							<!--MEDICAL CLEARANCE-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_MEDCLEAR" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i>
+									</div>
+									<div class="content">
+										<div class="text">CLEARANCE</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							</div>
+							<!--MISC. FORMS-->
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+								<div class="info-box-4 hover-expand-effect" data-dismiss="modal" data-toggle="modal" href="#_FORMS" style="cursor:pointer;">
+									<div class="icon">
+										<i class="material-icons">list</i>
+									</div>
+									<div class="content">
+										<div class="text">MISC. FORMS</div>
+										<div class="number count-to" data-from="0" data-to="257" data-speed="1000" data-fresh-interval="20">257</div>
+									</div>
+								</div>
+							</div>
+							
+							
+						</div>
+                        <div class="modal-footer">
+                            
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- EMR MODAL -->	
+			<style>
+				.modal__header {
+				height: 200px;
+				}
+				
+				.modal__footer {
+				padding:5px;
+				margin:0px;
+				height: 50px;
+				bottom: 0;
+				}
+				.modal__content,
+				.modal__footer {
+				position: absolute;
+				width: 100%;
+				}
+				.modal__content {
+				display:block;
+				bottom: 50px;
+				top: 187px;
+				overflow-y: auto;
+				}
+				@media (max-width: 600px) {
+					.modal__content {
+					top: 275px;
+					}
+				}
+			</style>
+            <!-- SOAP MODAL -->
+            <div class="modal fade" id="_SOAP" tabindex="-1" role="dialog" style="padding:0px;margin:0px;">
+                <div class="modal-dialog modal-full" role="document" style="padding:0px;margin:0px;">
+                    <div class="modal-content" style="padding:0px;margin:0px;">
+                        <div class="modal-header modal__header" style="padding:0px;margin:0px;">
+							
+								<div class="card profile-card" style="padding:0px;margin:0px;max-height:200px;">
+									<div class="profile-header" style='padding-top:50px;background-image: url("../images/cover.jpg"); background-position: 50% 50%; /* Center the image */background-repeat: no-repeat; /* Do not repeat the image */background-size: cover; /* Resize the background image to cover the entire container */'>
+									</div>
+										<div class="card col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:0px;margin:0px;">
+											<div class="col-lg-2 col-md-2 col-sm-3 col-xs-12" style="padding:0px;margin:0px;">
+												<div class="profile-body">
+													<div class="image-area">
+														<img src="../images/male.png" class="display_picture" width="150px" height="150px" alt="Resty C. Mangulabnan" />
+													</div>
+												</div>
+											</div>
+											<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12" style="padding:0px;margin:0px;">
+												<div class="profile-footer">
+													<ul>
+														<li style="padding:0px;margin:0px;line-height:7pt;">
+															<h4 class="pname">{PNAME}</h3>
+															<p class="pemail">{PEMAIL}</p>
+															<p class="poccupation font-bold col-teal">s&nbsp;</p>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+								</div>
+
+                        </div>
+                        <div class="modal-body modal__content">
+						<div class="row">
+						<!-- CONTENT -->
+							<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+							Left
+							</div>
+							<!-- CONTENT -->
+							<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+
+
+						
+							<!-- Subjective -->
+							<div class="row clearfix">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="card">
+										<div class="header">
+											<h2><span class="font-bold font-italic font-24 col-cyan">S</span><span class="font-italic col-cyan">ubjective</span></h2>
+											<ul class="header-dropdown m-r--5">
+												<li class="dropdown">
+													<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+														<i class="material-icons">more_vert</i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li><a href="javascript:void(0);">Action</a></li>
+														<li><a href="javascript:void(0);">Another action</a></li>
+														<li><a href="javascript:void(0);">Something else here</a></li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+										<div class="body">
+											<h2 class="card-inside-title">CHIEF COMPLAINT</h2>
+											
+											<div class="input-group">
+												<div class="form-line focused">
+													<input type="text" class="form-control" value="" placeholder="Input Chief Complaint" tabindex="1">
+												</div>
+												<span class="input-group-addon">
+													
+												</span>
+											</div>
+											
+											<h2 class="card-inside-title">HISTORY OF PRESENT ILLNESS</h2>
+											<div class="form-group">
+												<div class="form-line">
+													<textarea rows="3" class="form-control no-resize auto-growth" placeholder="Input History of Present Illness" tabindex="2"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- #END# Subjective -->
+							<!-- Objective -->
+							<div class="row clearfix">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="card">
+										<div class="header">
+											<h2><span class="font-bold font-italic font-24 col-cyan">O</span><span class="font-italic col-cyan">bjective</span></h2>
+											<ul class="header-dropdown m-r--5">
+												<li class="dropdown">
+													<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+														<i class="material-icons">more_vert</i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li><a href="javascript:void(0);">Action</a></li>
+														<li><a href="javascript:void(0);">Another action</a></li>
+														<li><a href="javascript:void(0);">Something else here</a></li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+										<div class="body">
+											<h2 class="card-inside-title">VITALS</h2>
+												<div class="form-group">
+												
+													<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+													</div>
+													<div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+													<button type="button" class="btn bg-indigo waves-effect pull-right" data-toggle="modal" href="#_VITALS"><i class="fa fa-edit"></i> Edit</button>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">WT <span class="font-bold font-italic font-24 col-indigo vWT"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> kg</span></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">HT <span class="font-bold font-italic font-24 col-indigo vHT"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> m</span></div>
+														<div class="clearfix"></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">BMI <span class="font-bold font-italic font-24 col-indigo vBMI"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> kg/m2</span> <span class="font-bold font-italic font-15 col-amber sBMI"> </span></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">BP <span class="font-bold font-italic font-24 col-indigo vBP1"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> / </span> <span class="font-bold font-italic font-24 col-indigo vBP2"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> mmHg</span></div>
+														<div class="clearfix"></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">SPO2 <span class="font-bold font-italic font-24 col-indigo vSPO2"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> %</span></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">RR <span class="font-bold font-italic font-24 col-indigo vRR"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> breaths/min</span></div>
+														<div class="clearfix"></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">HR <span class="font-bold font-italic font-24 col-indigo vHR"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> bpm</span></div>
+														<div class="col-lg-4 col-md-5 col-sm-5 col-xs-12">BT <span class="font-bold font-italic font-24 col-indigo vBT"> -- </span> <span class="font-bold font-italic font-15 col-indigo"> C</span></div>
+														
+													</div>
+													
+												</div>
+												<div class="clearfix"></div>
+											<h2 class="card-inside-title">PHYSICAL EXAMINATION</h2>
+												<div class="form-group">
+												<span class="font-bold font-italic font-40 col-cyan">+</span>
+												</div>
+												
+<div class="col-md-12 field_wrapper">
+<div id="soap_image_preview"></div>
+<input type="file" id="soap_photos" name="soap_photos[]" style="display:none;" accept="image/*" multiple />
+<div id="soap_files_preview"></div>
+<input type="file" id="soap_files" name="soap_files[]" style="display:none;" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+text/plain, application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.presentationml.slideshow" />
+
+</div>	
+<div class="col-md-12 field_remarks0">
+
+</div>											
+												
+											<div class="button-demo align-center">
+												<button type="button" class="btn bg-indigo waves-effect" onclick="document.getElementById('soap_photos').click()"><i class="fa fa-plus"></i> Attach Photos</button>
+												<button type="button" class="btn bg-indigo waves-effect" onclick="document.getElementById('soap_files').click()"><i class="fa fa-plus"></i> Attach Docs</button>
+												<button type="button" class="btn bg-indigo waves-effect add_remarks0"><i class="fa fa-plus"></i> Remarks</button>
+				
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+	  
+  if (window.File && window.FileList && window.FileReader) {
+    $("#soap_photos").on("change", function(e) {
+      var files = e.target.files,
+        filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) {
+        var f = files[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+          $("<span class=\"pip\">" +
+            "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"imageThumb\" style=\"cursor:pointer;\" src=\"" + e.target.result + "\" title=\"" + f.name + "\"/>" +
+            "<br/><span class=\"remove\">Remove </span>" +
+            "</span>").insertAfter("#soap_photos");
+          $(".remove").click(function(){
+            $(this).parent(".pip").remove();
+          });
+          
+        });
+        fileReader.readAsDataURL(f);
+      }
+    });
+	
+    $("#soap_files").on("change", function(e) {
+      var files = e.target.files,
+        filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) {
+        var f = files[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+         $("<div class=\"pip col-md-12\" style=\"margin-bottom:5px;\">" +
+            "<img src=\"images/icons/32px/" + f.name.split('.').pop() + ".png\"/>" + "<b>" + f.name + "</b> " +
+            "<a href=\"javascript:void(0);\" class=\"remove0 btn-danger btn-xs\"><i class=\"fa fa-minus\"></i> </a>" +
+            "</div>").insertAfter("#soap_files");
+          $(".remove0").click(function(){
+            $(this).parent(".pip").remove();
+          });
+    
+        });
+        fileReader.readAsDataURL(f);
+      }
+    });
+	
+	
+	
+  } else {
+    alert("Your browser doesn't support to File API")
+  }
+});
+</script>
+
+							<!-- #END# Objective -->
+							<!-- Assessment -->
+							<div class="row clearfix">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="card">
+										<div class="header">
+											<h2><span class="font-bold font-italic font-24 col-cyan">A</span><span class="font-italic col-cyan">ssessment</span></h2>
+											<ul class="header-dropdown m-r--5">
+												<li class="dropdown">
+													<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+														<i class="material-icons">more_vert</i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li><a href="javascript:void(0);">Action</a></li>
+														<li><a href="javascript:void(0);">Another action</a></li>
+														<li><a href="javascript:void(0);">Something else here</a></li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+										<div class="body">
+											<h2 class="card-inside-title">DIAGNOSIS</h2>
+												<div class="form-group">
+												<div class="form-line">
+													<textarea rows="3" class="form-control no-resize auto-growth" placeholder="Input Diagnosis" tabindex="4"></textarea>
+												</div>
+											</div>
+											<div class="col-md-12 field_remarks1">
+
+											</div>
+		
+											<div class="button-demo align-center">
+					
+												<button type="button" class="btn bg-indigo waves-effect add_remarks1"><i class="fa fa-plus"></i> Remarks</button>
+				
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- #END# Assessment -->
+							<!-- Plan -->
+							<div class="row clearfix">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="card">
+										<div class="header">
+											<h2><span class="font-bold font-italic font-24 col-cyan">P</span><span class="font-italic col-cyan">lan</span></h2>
+											<ul class="header-dropdown m-r--5">
+												<li class="dropdown">
+													<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+														<i class="material-icons">more_vert</i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li><a href="javascript:void(0);">Action</a></li>
+														<li><a href="javascript:void(0);">Another action</a></li>
+														<li><a href="javascript:void(0);">Something else here</a></li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+										<div class="body">
+											<h2 class="card-inside-title">Plan</h2>
+												<div class="form-group">
+												<div class="form-line">
+													<textarea rows="3" class="form-control no-resize auto-growth" placeholder="Input Plan" tabindex="5"></textarea>
+												</div>
+											</div>
+											<div class="col-md-12 field_remarks2">
+
+											</div>
+											
+											<div class="button-demo align-center">
+					
+												<button type="button" class="btn bg-indigo waves-effect"><i class="fa fa-plus"></i> Prescription</button>
+												<button type="button" class="btn bg-indigo waves-effect"><i class="fa fa-plus"></i> Lab Request</button>
+												<button type="button" class="btn bg-indigo waves-effect add_remarks2"><i class="fa fa-plus"></i> Remarks</button>
+				
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- #END# Plan -->
+							<!-- Follow up Check Up -->
+							<div class="row clearfix">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div class="card">
+										<div class="header">
+											<h2><span class="font-bold font-italic font-24 col-cyan">F</span><span class="font-italic col-cyan">ollow up check up</span></h2>
+											<ul class="header-dropdown m-r--5">
+												<li class="dropdown">
+													<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+														<i class="material-icons">more_vert</i>
+													</a>
+													<ul class="dropdown-menu pull-right">
+														<li><a href="javascript:void(0);">Action</a></li>
+														<li><a href="javascript:void(0);">Another action</a></li>
+														<li><a href="javascript:void(0);">Something else here</a></li>
+													</ul>
+												</li>
+											</ul>
+										</div>
+										<div class="body">
+											<h2 class="card-inside-title">Date</h2>
+												<div class="input-group">
+													<div class="col-md-4 col-md-4 col-sm-3 col-xs-12">
+														<div class="form-group">
+															<div class="form-line">
+																<input type="date" class="form-control" tabindex="6">
+															</div>
+														</div>
+													</div>
+											</div>
+											<div class="col-md-12 field_remarks3">
+
+											</div>
+											
+											<div class="button-demo align-center">
+					
+												<button type="button" class="btn bg-indigo waves-effect add_remarks3"><i class="fa fa-plus"></i> Remarks</button>
+				
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- #END# Follow up Check Up -->
+
+
+
+
+
+
+
+							</div>
+
+								
+							</div>
+						</div>
+                        <div class="modal-footer modal__footer">
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- SOAP MODAL -->
+			
+            <!-- #START VITALS -->          
+			<div class="modal fade" id="_VITALS" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><span class="font-bold font-italic font-24 col-cyan">V</span><span class="font-italic col-cyan">itals</span> </h4>
+							</div>
+							<div class="modal-body">
+									<div class="input-group">		
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Weight<span class="font-bold font-italic font-15 col-indigo"> (kg)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viWT" placeholder="kg" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Height <span class="font-bold font-italic font-15 col-indigo"> (m)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viHT" placeholder="m" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Body Mass Index <span class="font-bold font-italic font-15 col-indigo"> (kg/m2)</span> <span class="font-bold font-italic font-15 col-amber siBMI"> </span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viBMI" placeholder="kg/m2" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-6">
+										 <h2 class="card-inside-title">Blood Pressure <span class="font-bold font-italic font-15 col-indigo"> (mmHg)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viBP1" placeholder="mmHg" />
+												</div>
+											</div>
+										</div>							
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viBP2" placeholder="mmHg" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Oxygen Saturation <span class="font-bold font-italic font-15 col-indigo"> (%)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viSPO2" placeholder="%" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Respiratory Rate <span class="font-bold font-italic font-15 col-indigo"> (breaths/min)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viRR" placeholder="breaths/min" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Heart Rate <span class="font-bold font-italic font-15 col-indigo"> (bpm)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viHR" placeholder="bpm" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-xs-9">
+										 <h2 class="card-inside-title">Body Temperature <span class="font-bold font-italic font-15 col-indigo"> (C)</span></h2>
+										</div>
+										<div class="col-xs-3">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viBT" placeholder="C" />
+												</div>
+											</div>
+										</div>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-link waves-effect" onclick="SaveVitals();" data-dismiss="modal">SAVE</button>
+								<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+							</div>
+						</div>
+					</form>
+                </div>
+            </div>			
+			<!-- #END VITALS -->	
+
+            <!-- #START TEXT/NOTES MODAL-->     
+			<div class="modal fade" id="_NOTES" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><span class="font-bold font-italic font-24 col-cyan">T</span><span class="font-italic col-cyan">ext</span><span class="font-bold font-italic font-24 col-cyan">/</span><span class="font-bold font-italic font-24 col-cyan">N</span><span class="font-italic col-cyan">otes</span> </h4>
+							</div>
+							<div class="modal-body">
+									<div class="input-group">		
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Title:</span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="text" class="form-control font-italic font-20 col-indigo viWT" placeholder="eg. Examination Report, Assessment etc." />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Date:</span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="date" class="form-control font-italic font-20 col-indigo viHT" placeholder="m" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Text/Notes:</span> <span class="font-bold font-italic font-15 col-amber siBMI"> </span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<textarea rows="5" class="form-control no-resize auto-growth" placeholder="Input Notes" tabindex="2"></textarea>
+												</div>
+											</div>
+										</div>							
+
+										
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-link waves-effect" onclick="SaveVitals();" data-dismiss="modal">SAVE</button>
+								<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+							</div>
+						</div>
+					</form>
+                </div>
+            </div>			
+			<!-- #END TEXT/NOTES MODAL-->	
+
+            <!-- #START PRESCRIPTION MODAL-->     
+			<div class="modal fade" id="_PRESCRIPTION" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><span class="font-bold font-italic font-24 col-cyan">P</span><span class="font-italic col-cyan">rescription</span> </h4>
+							</div>
+							<div class="modal-body">
+									<div class="input-group">		
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Brand:</span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="text" class="form-control font-italic font-20 col-indigo viWT" placeholder="" />
+												</div>
+											</div>
+										</div>							
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Generic:</span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="text" class="form-control font-italic font-20 col-indigo viWT" placeholder="" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Dose:</span></h2>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="text" class="form-control font-italic font-20 col-indigo viWT" placeholder="" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Form:</span></h2>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="text" class="form-control font-italic font-20 col-indigo viWT" placeholder="" />
+												</div>
+											</div>
+										</div>							
+
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Quantity:</span></h2>
+										</div>
+										<div class="col-md-4">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-20 col-indigo viWT" placeholder="" />
+												</div>
+											</div>
+										</div>							
+										<div class="clearfix"></div>
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Frequency:</span> <span class="font-bold font-italic font-15 col-amber siBMI"> </span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;z-index: 9999;">
+													<select name="Frequency" class="form-control show-tick" >
+													<option value="" disabled="">Select Frequency</option>
+													<option value="f_01">As needed</option>
+													<option value="f_02">Every Hour</option>
+													<option value="f_03">Every 2 Hours</option>
+													<option value="f_04">Every 3 Hours</option>
+													<option value="f_05">Every 4 Hours</option>
+													<option value="f_06">4x a Day (Every 6 Hours)</option>
+													<option value="f_07">3x a Day (Every 8 Hours)</option>
+													<option value="f_08">Twice a Day (Every 12 Hours)</option>
+													<option value="f_09">Once a Day</option>
+													<option value="f_10">Every Other Day</option>
+													<option value="f_12">q.d. (everyday)</option>
+													<option value="f_13">b.i.d. (2x a day)</option>
+													<option value="f_14">t.i.d. (3x a day)</option>
+													<option value="f_15">q.i.d. (4x a day)</option>
+													<option value="f_16">q.h.s. (before bed)</option>
+													<option value="f_17">5X a day</option>
+													<option value="f_18">q.4h (every 4 hours)</option>
+													<option value="f_19">q.6h (every 6 hours)</option>
+													<option value="f_20">q.8h (every 8 hours)</option>
+													<option value="f_21">q.12h (every 12 hours)</option>
+													<option value="f_22">q.o.d. (every other day)</option>
+													<option value="f_23">p.r.n. (as needed)</option>
+													<option value="f_24">q.t.t. (drop)</option>
+													<option value="f_25">q.a.m. (every morning)</option>
+													<option value="f_26">q.p.m. (every evening)</option>
+													<option value="f_27">q.s. (sufficient quantity)</option>
+													<option value="f_28">q.w. (every week)</option>
+													<option value="f_29">a.c. (before meals)</option>
+													<option value="f_30">p.c. (after meals)</option>
+													<option value="f_31">h.s. (at bedtime)</option>
+													<option value="f_32">ad lib. (as much as desired; freely)</option>
+													<option value="f_33">a.m. (before noon)</option>
+													<option value="f_34">p.m. (after noon)</option>
+													<option value="f_35">ATC (around the clock)</option>
+													<option value="f_36">FXD (for 10 days)</option>
+													<option value="f_37">stat. (immediately)</option>
+													<option value="f_38">TAD (take as directed)</option>
+													<option value="f_39">w/f (with food)</option>
+													<option value="f_40">u.d. (as directed)</option>
+													<option value="f_11">Other</option>
+													</select>
+												</div>
+											</div>
+										</div>							
+										<div class="col-md-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-italic font-15 col-indigo">Notes:</span></h2>
+										</div>
+										<div class="col-md-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line focused" style="padding:0px;margin:0px;">
+													<textarea rows="5" class="form-control no-resize auto-growth" placeholder="Input Notes" tabindex="2"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-12">
+										<input type="checkbox" id="md_checkbox_2" class="chk-col-indigo"><label for="md_checkbox_2">Favorites</label>
+										</div>
+									</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-link waves-effect" onclick="SaveVitals();" data-dismiss="modal">SAVE</button>
+								<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+							</div>
+						</div>
+					</form>
+                </div>
+            </div>			
+			<!-- #END PRESCRIPTION MODAL-->	
+
+            <!-- #START LAB REQUEST MODAL-->     
+			<div class="modal fade" id="_LABREQUEST" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><span class="font-bold font-italic font-24 col-cyan">L</span><span class="font-italic col-cyan">aboratory</span> <span class="font-bold font-italic font-24 col-cyan">R</span><span class="font-italic col-cyan">equest</span> <span class="font-bold font-italic font-24 col-cyan">F</span><span class="font-italic col-cyan">orm</span> </h4>
+							</div>
+							<div class="modal-body">
+	<style type="text/css">
+	
+		@media print
+		{
+			html
+			{
+				zoom: 60%;
+				margin-top:-20px;
+			}
+			
+			.print_header, .header-space {
+			height: 220px;
+			width:100%;
+			
+			}
+			.footer, .footer-space {
+			height: 80px;
+			width:100%;
+			}
+			.print_header {
+			position: fixed;
+			left: 50%;
+			transform: translate(-50%, 0);
+			
+			}
+			.footer {
+			position: fixed;
+			bottom: 0;
+			left: 50%;
+			transform: translate(-50%, 0);
+			}
+	
+			
+		}
+		
+		[type="checkbox"] + label {
+		padding-left: 26px;
+		height: 0px;
+		line-height: 25px;
+		font-size: 13px;
+		font-weight: normal;
+		}
+
+		td{
+			vertical-align: top;
+		}
+		
+	</style>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">		
+<?php
+$obj2->PaymentProcedures(1);
+$obj2->PaymentProcedures(2);
+$obj2->PaymentProcedures(3);
+$obj2->PaymentProcedures(4);
+
+?>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">		
+<?php
+$obj2->PaymentProcedures(5);
+$obj2->PaymentProcedures(6);
+$obj2->PaymentProcedures(7);
+$obj2->PaymentProcedures(8);
+$obj2->PaymentProcedures(9);
+?>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">				
+<?php
+$obj2->PaymentProcedures(10);
+$obj2->PaymentProcedures(11);
+$obj2->PaymentProcedures(12);
+$obj2->PaymentProcedures(13);
+$obj2->PaymentProcedures(14);
+
+?>
+</div>
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">			
+<?php
+$obj2->PaymentProcedures(15);
+$obj2->PaymentProcedures(16);
+$obj2->PaymentProcedures(17);
+$obj2->PaymentProcedures(18);
+?>
+</div>
+<div class="col-lg-12 col-md-3 col-sm-6 col-xs-12">	
+						<strong><span class="font-bold font-15 col-indigo">Fasting Hours : </span></strong>
+						<div class="demo-checkbox">
+								<input type="checkbox" id="md_checkbox_19" class="chk-col-indigo"  />
+								<label for="md_checkbox_19">8-10 hours</label>
+								<input type="checkbox" id="md_checkbox_20" class="chk-col-indigo"  />
+								<label for="md_checkbox_20">10-12 hours</label>
+						</div>
+</div>
+<div class="col-lg-12 col-md-3 col-sm-6 col-xs-12">	
+											<span class="font-bold font-15 col-indigo">Others : </span>
+											<div class="form-group">
+												<div class="form-line">
+													<textarea rows="3" class="form-control no-resize auto-growth" placeholder="Input other request"></textarea>
+												</div>
+											</div>
+</div>
+
+							
+							
+							
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-link waves-effect" onclick="SaveVitals();" data-dismiss="modal">SAVE</button>
+								<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+							</div>
+						</div>
+					</form>
+                </div>
+            </div>			
+			<!-- #END LAB REQUEST MODAL-->
+			
+            <!-- #START MEDICAL CERTIFICATE MODAL-->     
+			<div class="modal fade" id="_MEDCERT" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><span class="font-bold font-italic font-24 col-cyan">M</span><span class="font-italic col-cyan">edical</span> <span class="font-bold font-italic font-24 col-cyan">C</span><span class="font-italic col-cyan">ertificate</span> </h4>
+							</div>
+							<div class="modal-body">
+
+									
+								<div class="col-lg-4"></div>	
+								<div class="col-lg-4"></div>	
+								<div class="col-lg-4">
+										<div class="col-lg-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-15 col-indigo">Date:</span></h2>
+										</div>
+										<div class="col-lg-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="date" class="form-control font-bold font-italic font-15 col-red viHT" placeholder="" value="<?php echo date("Y-m-d")?>" />
+												</div>
+											</div>
+										</div>									
+								</div>	
+								<div class="col-lg-12">
+								<span class="font-bold font-15 col-indigo">This is to certify that <span class="pname font-italic col-red">{NAME}</span>, <span class="pAge font-italic col-red">{AGE}</span> years of age, was examined and treated on  
+											<div class="form-group" style="padding:0px;margin:0px;max-width:150px;display: inline-block;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="date" class="form-control font-italic font-15 col-red" placeholder="" />
+												</div>
+											</div>
+											with the following findings/diagnosis:</span>					
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group" style="padding:0px;margin:0px;">
+										<div class="form-line" style="padding:0px;margin:0px;">
+											<textarea rows="1" class="form-control no-resize auto-growth font-bold font-italic font-15 col-red" placeholder="Input findings/diagnosis"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+								<span class="font-bold font-15 col-indigo">And would need medical attention for 
+ 
+
+  
+											<div class="form-group" style="padding:0px;margin:0px;max-width:60px;display: inline-block;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="number" class="form-control font-italic font-15 col-red" placeholder="" />
+												</div>
+											</div>
+											days barring complications.</span>					
+								</div>
+								<div class="col-lg-12">
+								<span class="font-bold font-15 col-indigo">Further Recommendations:</span>					
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group" style="padding:0px;margin:0px;">
+										<div class="form-line" style="padding:0px;margin:0px;">
+											<textarea rows="1" class="form-control no-resize auto-growth font-bold font-italic font-15 col-red" placeholder="Input Further Recommendations"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+								<span class="font-bold font-italic font-15 col-blue">Disclaimer: This document shall not be copied, modified or reproduced in any way without the express written permission of the issuing party. This document shall not be used for Medicolegal purposes.</span>					
+								</div>
+
+								
+								</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-link waves-effect" onclick="SaveVitals();" data-dismiss="modal">SAVE</button>
+								<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+							</div>
+						</div>
+					</form>
+                </div>
+            </div>			
+			<!-- #END MEDICAL CERTIFICATE-->	
+
+            <!-- #START MEDICAL CLEARANCE MODAL-->     
+			<div class="modal fade" id="_MEDCLEAR" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+					<form>
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title"><span class="font-bold font-italic font-24 col-cyan">M</span><span class="font-italic col-cyan">edical</span> <span class="font-bold font-italic font-24 col-cyan">C</span><span class="font-italic col-cyan">learance</span> </h4>
+							</div>
+							<div class="modal-body">
+
+									
+								<div class="col-lg-4"></div>	
+								<div class="col-lg-4"></div>	
+								<div class="col-lg-4">
+										<div class="col-lg-2">
+										 <h2 class="card-inside-title"><span class="font-bold font-15 col-indigo">Date:</span></h2>
+										</div>
+										<div class="col-lg-10">
+											<div class="form-group" style="padding:0px;margin:0px;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="date" class="form-control font-bold font-italic font-15 col-red viHT" placeholder="" value="<?php echo date("Y-m-d")?>" />
+												</div>
+											</div>
+										</div>									
+								</div>	
+								<div class="col-lg-12">
+								<span class="font-bold font-15 col-indigo">This is to certify that <span class="pname font-italic col-red">{NAME}</span>, <span class="pAge font-italic col-red">{AGE}</span> years of age, was seen and examined on 
+											<div class="form-group" style="padding:0px;margin:0px;max-width:150px;display: inline-block;">
+												<div class="form-line" style="padding:0px;margin:0px;">
+													<input type="date" class="form-control font-italic font-15 col-red" placeholder="" value="<?php echo date("Y-m-d")?>" />
+												</div>
+											</div>
+											 and is clear to perform his/her duties.</span>					
+								</div>
+
+								<div class="col-lg-12">
+								<span class="font-bold font-15 col-indigo">Remarks:</span>					
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group" style="padding:0px;margin:0px;">
+										<div class="form-line" style="padding:0px;margin:0px;">
+											<textarea rows="1" class="form-control no-resize auto-growth font-bold font-italic font-15 col-red" placeholder="Input Remarks"></textarea>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+								<span class="font-bold font-italic font-15 col-blue">Disclaimer: This document shall not be copied, modified or reproduced in any way without the express written permission of the issuing party. This document shall not be used for Medicolegal purposes.</span>					
+								</div>
+
+								
+								</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-link waves-effect" onclick="SaveVitals();" data-dismiss="modal">SAVE</button>
+								<button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+							</div>
+						</div>
+					</form>
+                </div>
+            </div>			
+			<!-- #END MEDICAL CLEARANCE-->	
+
+
+			
+                                    <div role="tabpanel" class="tab-pane fade" id="records">
+									<div class="col-xs-12 col-sm-12">
+									<button type="button" class="btn bg-blue btn-xs waves-effect" data-toggle="modal" data-target="#RECORD"><i class="material-icons">queue</i> NEW MEDICAL RECORD</button>
+									</div>
+ 										<div class="body">
+											<div class="row clearfix">
+												<div class="col-xs-12 ol-sm-12 col-md-12 col-lg-12">
+												
+													<style>
+													td{font-size:10.5pt;}
+													</style>
+													<div class="table-responsive">
+														<table id="RECORDS" class="display" cellspacing="0" width="100%">
+															<thead>
+																<tr>
+																	<th>Particulars</th>
+																	<th>Result</th>
+																</tr>
+															</thead>
+															<tbody>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>											
+                                    </div>
+            <!-- RECORD -->
+            <div class="modal fade" id="RECORD" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="largeModalLabel">Create New Record </h4>
+                        </div>
+						<form id="labreport_form" onsubmit="return false" method="get" enctype="multipart/form-data">
+                        <div class="modal-body clearfix">
+							<div class="col-lg-12 col-md-12 col-xm-12 col-xs-12 input-group">
+								
+								<p>
+									<b>Type</b>
+								</p>								
+								<select class="form-control show-tick" data-live-search="true">
+								  <option label="Select Type" value="" selected="selected">Select Type</option>
+								  <optgroup label="Audio">
+									 <option label="Audiometry" value="Audiometry">Audiometry</option>
+									 <option label="Auscultation (any organ)" value="Auscultation (any organ)">Auscultation (any organ)</option>
+									 <option label="Tympanometry" value="Tympanometry">Tympanometry</option>
+									 <option label="Others" value="Audio - Others">Audio - Others</option>
+								  </optgroup>
+								  <optgroup label="Biopsy">
+									 <option label="Biopsy" value="Biopsy">Biopsy</option>
+									 <option label="Others" value="biopsy other">Biopsy - Other</option>
+								  </optgroup>
+								  <optgroup label="Blood Tests">
+									 <option label="Blood Tests" value="Blood Tests">Blood Tests</option>
+									 <option label="Others" value="bloodtest other">bloodtest - other</option>
+								  </optgroup>
+								  <optgroup label="Gastroenterology/Hepatology">
+									 <option label="Liver Fibroscan" value="Liver Fibroscan">Liver Fibroscan</option>
+									 <option label="Liver Shearwave Elastography" value="Liver Shearwave Elastography">Liver Shearwave Elastography</option>
+									 <option label="Others" value="Gastroenterology other">Gastroenterology Others</option>
+								  </optgroup>
+								  <optgroup label="Heart Station">
+									 <option label="Cardiac Catheterization" value="Cardiac Catheterization">Cardiac Catheterization</option>
+									 <option label="Echocardiography" value="Echocardiography">Echocardiography</option>
+									 <option label="Echocardiography w/ Doppler" value="Echocardiography w/ Doppler">Echocardiography w/ Doppler</option>
+									 <option label="Electrocardiography (ECG)" value="Electrocardiography (ECG)">Electrocardiography (ECG)</option>
+									 <option label="Holter Monitoring" value="Holter Monitoring">Holter Monitoring</option>
+									 <option label="Impedance Cardiography (ICG)" value="Impedance Cardiography (ICG)">Impedance Cardiography (ICG)</option>
+									 <option label="Stress Echocardiography" value="Stress Echocardiography">Stress Echocardiography</option>
+									 <option label="Treadmill Exercise Test" value="Treadmill Exercise Test">Treadmill Exercise Test</option>
+									 <option label="Treadmill Stress Echo" value="Treadmill Stress Echo">Treadmill Stress Echo</option>
+									 <option label="Treadmill Stress Test" value="Treadmill Stress Test">Treadmill Stress Test</option>
+									 <option label="Others" value="Heart Station - Others">Heart Station - Others</option>
+								  </optgroup>
+								  <optgroup label="Imaging">
+									 <option label="Angiography (Angiogram)" value="Angiography (Angiogram)">Angiography (Angiogram)</option>
+									 <option label="CT Scan (Computed Tomography)" value="CT Scan (Computed Tomography)">CT Scan (Computed Tomography)</option>
+									 <option label="DXA (Bone Densitometry)" value="DEXA">DXA (Bone Densitometry)</option>
+									 <option label="Fluoroscopy" value="Fluoroscopy">Fluoroscopy</option>
+									 <option label="General Ultrasonography (Ultrasound)" value="Ultrasonography (Ultrasound)">General Ultrasonography (Ultrasound)</option>
+									 <option label="MRI (Magnetic Resonance Imaging)" value="MRI (Magnetic Resonance Imaging)">MRI (Magnetic Resonance Imaging)</option>
+									 <option label="Mammography" value="Mammography">Mammography</option>
+									 <option label="Musculoskeletal Ultrasound (MSK)" value="Musculoskeletal Ultrasound (MSK)">Musculoskeletal Ultrasound (MSK)</option>
+									 <option label="PET Scan (Positron Emission Tomography)" value="PET Scan (Positron Emission Tomography)">PET Scan (Positron Emission Tomography)</option>
+									 <option label="Radioisotope Scanning" value="Radioisotope Scanning">Radioisotope Scanning</option>
+									 <option label="Radionuclide Imaging" value="Radionuclide Imaging">Radionuclide Imaging</option>
+									 <option label="Special Ultrasound w/ color flow" value="Special Ultrasound w/ color flow">Special Ultrasound w/ color flow</option>
+									 <option label="Thyroid Scan" value="Thyroid Scan">Thyroid Scan</option>
+									 <option label="X-ray" value="X-ray">X-ray</option>
+									 <option label="Others" value="Imaging - Others">Imaging - Others</option>
+								  </optgroup>
+								  <optgroup label="Men's Health">
+									 <option label="Acrosome Reaction" value="Acrosome Reaction">Acrosome Reaction</option>
+									 <option label="Hemizona Assay" value="Hemizona Assay">Hemizona Assay</option>
+									 <option label="Hypo-osmotic Swelling" value="Hypo-osmotic Swelling">Hypo-osmotic Swelling</option>
+									 <option label="Scrotal Ultrasound" value="Scrotal Ultrasound">Scrotal Ultrasound</option>
+									 <option label="Semen Analysis" value="Semen Analysis">Semen Analysis</option>
+									 <option label="Sperm Agglutination" value="Sperm Agglutination">Sperm Agglutination</option>
+									 <option label="Sperm Penetration Assay" value="Sperm Penetration Assay">Sperm Penetration Assay</option>
+									 <option label="Testicular Biopsy" value="Testicular Biopsy">Testicular Biopsy</option>
+									 <option label="Ultrasonography" value="Ultrasonography">Ultrasonography</option>
+									 <option label="Urinalysis" value="Urinalysis">Urinalysis</option>
+									 <option label="Vasography" value="Vasography">Vasography</option>
+									 <option label="Others" value="Men's Health Others">Men's Health - Others</option>
+								  </optgroup>
+								  <optgroup label="Nephrology">
+									 <option label="Dialysis" value="Dialysis">Dialysis</option>
+									 <option label="Others" value="Nephrology - Other">Nephrology - Others</option>
+								  </optgroup>
+								  <optgroup label="Neurology">
+									 <option label="Videonystagmography" value="Videonystagmography">Videonystagmography</option>
+									 <option label="Others" value="Neurology other">Neurology - Others</option>
+								  </optgroup>
+								  <optgroup label="Neuromuscular Testing">
+									 <option label="Electroencephalography (EEG)" value="Electroencephalography (EEG)">Electroencephalography (EEG)</option>
+									 <option label="Electromyography (EMG) " value="Electromyography (EMG) ">Electromyography (EMG) </option>
+									 <option label="Electrophysiologic Testing (EPS)" value="Electrophysiologic Testing (EPS)">Electrophysiologic Testing (EPS)</option>
+									 <option label="Nerve conduction Study (NCS)" value="Nerve conduction Study (NCS)">Nerve conduction Study (NCS)</option>
+									 <option label="Reflex Test" value="Reflex Test">Reflex Test</option>
+									 <option label="Others" value="Neuromuscular Testing - Others">Neuromuscular Testing - Others</option>
+								  </optgroup>
+								  <optgroup label="Oncology">
+									 <option label="Chemotherapy" value="Chemotherapy">Chemotherapy</option>
+									 <option label="Others" value="Oncology - Other">Oncology - Others</option>
+								  </optgroup>
+								  <optgroup label="Ophthalmology">
+									 <option label="B-Scan Ultrasonography" value="B-Scan Ultrasonography">B-Scan Ultrasonography</option>
+									 <option label="Biometry" value="Biometry">Biometry</option>
+									 <option label="Corneal Pachymetry" value="Corneal Pachymetry">Corneal Pachymetry</option>
+									 <option label="Corneal Topography" value="Corneal Topography">Corneal Topography</option>
+									 <option label="Fluorescein Angiography (FA)" value="Digital Fluorescein Angiography (FA)">Fluorescein Angiography (FA)</option>
+									 <option label="Frequency Doubling Technology (FDT) Perimetry" value="Frequency Doubling Technology (FDT) Perimetry">Frequency Doubling Technology (FDT) Perimetry</option>
+									 <option label="Fundus Photography" value="Fundus Photography">Fundus Photography</option>
+									 <option label="Gonioscopy" value="Gonioscopy">Gonioscopy</option>
+									 <option label="Indocyanine Green (ICG) Retina Tomography" value="Indocyanine Green (ICG) Retina Tomography">Indocyanine Green (ICG) Retina Tomography</option>
+									 <option label="Indocyanine Green (ICG) Retina Tomography w/ Fluorescein Angiography (FA)" value="Indocyanine Green (ICG) Retina Tomography w/ Fluorescein Angiography (FA)">Indocyanine Green (ICG) Retina Tomography w/ Fluorescein Angiography (FA)</option>
+									 <option label="Optical Coherence Tomography (OCT)" value="Optical Coherence Tomography (OCT)">Optical Coherence Tomography (OCT)</option>
+									 <option label="Optos Wide-Field Angiography" value="Optos Wide-Field Angiography">Optos Wide-Field Angiography</option>
+									 <option label="Optos Wide-Field Fundus Photos" value="Optos Wide-Field Fundus Photos">Optos Wide-Field Fundus Photos</option>
+									 <option label="Pentacam" value="Pentacam">Pentacam</option>
+									 <option label="Perimetry / Visual Field Test" value="Perimetry">Perimetry / Visual Field Test</option>
+									 <option label="Retcam" value="Retcam">Retcam</option>
+									 <option label="Slit Lamp Findings" value="Slit Lamp Findings">Slit Lamp Findings</option>
+									 <option label="Tonometry - Applanation" value="Applanation Tonometry">Tonometry - Applanation</option>
+									 <option label="Tonometry - Indentation" value="Indentation Tonometry">Tonometry - Indentation</option>
+									 <option label="Ultrasonography (UTZ)" value="Ultrasonography (UTZ)">Ultrasonography (UTZ)</option>
+									 <option label="Ultrasound Biomicroscopy (UBM)" value="Ultrasound Biomicroscopy (UBM)">Ultrasound Biomicroscopy (UBM)</option>
+									 <option label="Others" value="Ophthalmology - Others">Ophthalmology - Others</option>
+								  </optgroup>
+								  <optgroup label="Organ Visualization (Endoscopy)">
+									 <option label="Arthroscopy (Joints)" value="Arthroscopy (Joints)">Arthroscopy (Joints)</option>
+									 <option label="Bronchoscopy (Lungs)" value="Bronchoscopy (Lungs)">Bronchoscopy (Lungs)</option>
+									 <option label="Colonoscopy (Colon)" value="Colonoscopy (Colon)">Colonoscopy (Colon)</option>
+									 <option label="Cystoscopy (Bladder)" value="Cystoscopy (Bladder)">Cystoscopy (Bladder)</option>
+									 <option label="Esophagoscopy (Esophagus)" value="Esophagoscopy (Esophagus)">Esophagoscopy (Esophagus)</option>
+									 <option label="Gastroscopy (Stomach)" value="Gastroscopy (Stomach)">Gastroscopy (Stomach)</option>
+									 <option label="Hysteroscopy (Uterus)" value="Hysteroscopy (Uterus)">Hysteroscopy (Uterus)</option>
+									 <option label="Laparoscopy (Abdominal Cavity)" value="Laparoscopy (Abdominal Cavity)">Laparoscopy (Abdominal Cavity)</option>
+									 <option label="Laryngoscopy (Voice Box)" value="Laryngoscopy (Voice Box)">Laryngoscopy (Voice Box)</option>
+									 <option label="Mediastinoscopy (Chest Area)" value="Mediastinoscopy (Chest Area)">Mediastinoscopy (Chest Area)</option>
+									 <option label="Proctosigmoidoscopy (Lower Colon)" value="Proctosigmoidoscopy">Proctosigmoidoscopy (Lower Colon)</option>
+									 <option label="Thoracoscopy (Lungs &amp; Pleura)" value="Thoracoscopy (Lungs &amp; Pleura)">Thoracoscopy (Lungs &amp; Pleura)</option>
+									 <option label="Upper Gastrointestinal Endoscopy (Esophagus, Stomach, Small Intestine)" value="Upper Gastrointestinal Endoscopy (Esophagus, Stomach, Small Intestine)">Upper Gastrointestinal Endoscopy (Esophagus, Stomach, Small Intestine)</option>
+									 <option label="Ureteroscopy (Urethra)" value="Ureteroscopy (Urethra)">Ureteroscopy (Urethra)</option>
+									 <option label="Others" value="Organ Visualization - Others">Organ Visualization - Others</option>
+								  </optgroup>
+								  <optgroup label="Other">
+									 <option label="Other" value="Other">Other</option>
+								  </optgroup>
+								  <optgroup label="Other Body Fluids">
+									 <option label="Amniocentesis (Amniotic Fluid Test / AFT)" value="Amniocentesis (Amniotic Fluid Test / AFT)">Amniocentesis (Amniotic Fluid Test / AFT)</option>
+									 <option label="Bacterial Culture" value="Bacterial Culture">Bacterial Culture</option>
+									 <option label="Bone Marrow Aspiration" value="Bone Marrow Aspiration">Bone Marrow Aspiration</option>
+									 <option label="Chrionic Villus Sampling (CVS)" value="Chrionic Villus Sampling (CVS)">Chrionic Villus Sampling (CVS)</option>
+									 <option label="Fluids and Electrolytes Test" value="Fluids and Electrolytes Test">Fluids and Electrolytes Test</option>
+									 <option label="Joint Aspiration" value="Joint Aspiration">Joint Aspiration</option>
+									 <option label="Paracentesis" value="Paracentesis">Paracentesis</option>
+									 <option label="Spinal Tap (Lumbar Puncture)" value="Spinal Tap (Lumbar Puncture)">Spinal Tap (Lumbar Puncture)</option>
+									 <option label="Sputum Exam" value="Sputum Exam">Sputum Exam</option>
+									 <option label="Thoracentesis" value="Thoracentesis">Thoracentesis</option>
+									 <option label="Others" value="Other Body Fluids - Others">Other Body Fluids - Others</option>
+								  </optgroup>
+								  <optgroup label="Pulmonary Function">
+									 <option label="Arterial Blood Gas (ABG)" value="Arterial Blood Gas (ABG)">Arterial Blood Gas (ABG)</option>
+									 <option label="Spirometry &amp; Pulmonary Function Tests (PFTs)" value="Spirometry &amp; Pulmonary Function Tests (PFTs)">Spirometry &amp; Pulmonary Function Tests (PFTs)</option>
+									 <option label="Others" value="Pulmonary Function - Others">Pulmonary Function - Others</option>
+								  </optgroup>
+								  <optgroup label="Stool Exam">
+									 <option label="Stool Exam" value="Stool Exam">Stool Exam</option>
+									 <option label="Others" value="stool other">stool Others</option>
+								  </optgroup>
+								  <optgroup label="Urine Exam">
+									 <option label="Urine Exam" value="Urine Exam">Urine Exam</option>
+									 <option label="Others" value="urine other">urine - Others</option>
+								  </optgroup>
+								  <optgroup label="Vascular Study">
+									 <option label="Arterial Duplex Scan" value="Arterial Duplex Scan">Arterial Duplex Scan</option>
+									 <option label="Carotid Duplex Scan" value="Carotid Duplex Scan">Carotid Duplex Scan</option>
+									 <option label="Venous Duplex Scan" value="Venous Duplex Scan">Venous Duplex Scan</option>
+									 <option label="Others" value="Vascular Study - Others">Vascular Study - Others</option>
+								  </optgroup>
+								  <optgroup label="<b>Women's Health Tests</b>">
+									 <option label="Biophysical Profile" value="Biophysical Profile">Biophysical Profile</option>
+									 <option label="Breast Ultrasound" value="Breast Ultrasound">Breast Ultrasound</option>
+									 <option label="Cardiotocography (CTG / Electronic Fetal Monitor)" value="Cardiotocography">Cardiotocography (CTG / Electronic Fetal Monitor)</option>
+									 <option label="Congenital Anomaly Scan" value="Congenital Anomaly Scan">Congenital Anomaly Scan</option>
+									 <option label="Dilatation and Curettage (D&amp;C)" value="Dilatation and Curettage (D&amp;C)">Dilatation and Curettage (D&amp;C)</option>
+									 <option label="Doppler Velocimetry Studies" value="Doppler Velocimetry Studies">Doppler Velocimetry Studies</option>
+									 <option label="Electronic Fetal Monitoring" value="Electronic Fetal Monitoring">Electronic Fetal Monitoring</option>
+									 <option label="Fetal Biometry" value="Fetal Biometry">Fetal Biometry</option>
+									 <option label="First Trimester Ultrasound" value="First Trimester Ultrasound">First Trimester Ultrasound</option>
+									 <option label="Gynecologic" value="Gynecologic">Gynecologic</option>
+									 <option label="Obstetric" value="Obstetric">Obstetric</option>
+									 <option label="Pap Smear (Papanicolaou Smear Test)" value="Pap Smear (Panicolaou Smear Test)">Pap Smear (Papanicolaou Smear Test)</option>
+									 <option label="Pelvic Ultrasound" value="Pelvic Ultrasound">Pelvic Ultrasound</option>
+									 <option label="Pregnancy Test" value="Pregnancy Test">Pregnancy Test</option>
+									 <option label="Transvaginal/Transrectal Ultrasound" value="Transvaginal/Transrectal Ultrasound">Transvaginal/Transrectal Ultrasound</option>
+									 <option label="Others" value="women other">Women's Health - Others</option>
+								  </optgroup>
+							
+								</select>								
+								<div class="clearfix"></div><br>
+								<p><b>Lab Name</b></p>																
+								<div class="form-line">
+									<input type="text" class="form-control" name="labreport_labname" placeholder="Input Lab Name" required>
+								</div>
+								<div class="clearfix"></div><br>
+								<p><b>Result Date</b></p>								
+								<div class="form-line">
+									<input type="date" class="form-control date datepicker" name="labreport_resultdate" placeholder="Ex: 30/07/2016">
+								</div>
+								<div class="clearfix"></div><br>
+								<p><b>Remarks</b></p>																
+								<div class="form-line">
+									<input type="text" class="form-control" name="labreport_remarks" placeholder="Input Remarks" required>
+								</div>
+								<div class="clearfix"></div><br/>
+
+								<div class="col-md-12">
+								<label class="thumb-image-add-button" onclick="document.getElementById('files').click()" style="vertical-align:middle;">
+									<i class="fa fa-plus"style="position:relative;top:30px;color:#0090f5 !important;"></i> 
+								</label>
+								<br/><br/><br/><br/>
+								<input type="file" id="files" name="files[]" style="display:none;" accept="image/*" multiple required/>
+								<div id="image_preview"></div>
+								</div>
+                        						
+							</div>	
+						</div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-link waves-effect">CREATE</button>
+                            <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                        </div>
+						</form>
+                    </div>
+                </div>
+            </div>
+			<!-- #END RECORD -->	
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <center><img class="img-responsive" src=""/></center>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+			<script>
+			
+
+
+
+			function SaveVitals(){
+			
+				var vWT = $(".viWT").val();
+				var vHT = $(".viHT").val();
+				var vBMI = $(".viBMI").val();
+				var sBMI = $(".siBMI").text();
+				var vBP1 = $(".viBP1").val();
+				var vBP2 = $(".viBP2").val();
+				var vSPO2 = $(".viSPO2").val();
+				var vRR = $(".viRR").val();
+				var vHR = $(".viHR").val();
+				var vBT = $(".viBT").val();
+				$(".vWT").html(vWT);	
+				$(".vHT").html(vHT);	
+				$(".sBMI").html(sBMI);	
+				$(".vBMI").html(vBMI);	
+				$(".vBP1").html(vBP1);	
+				$(".vBP2").html(vBP2);	
+				$(".vSPO2").html(vSPO2);	
+				$(".vRR").html(vRR);	
+				$(".vHR").html(vHR);	
+				$(".vBT").html(vBT);	
+				
+				
+				if	(	vWT==null || vWT==""	){	$(".vWT").html("--");	}
+				if	(	vHT==null || vHT==""	){	$(".vHT").html("--");	}
+				if	(	vBMI==null || vBMI==""	){	$(".vBMI").html("--");	}
+				if	(	vBP1==null || vBP1==""	){	$(".vBP1").html("--");	}
+				if	(	vBP2==null || vBP2==""	){	$(".vBP2").html("--");	}
+				if	(	vSPO2==null || vSPO2==""	){	$(".vSPO2").html("--");	}
+				if	(	vRR==null || vRR==""	){	$(".vRR").html("--");	}
+				if	(	vHR==null || vHR==""	){	$(".vHR").html("--");	}
+				if	(	vBT==null || vBT==""	){	$(".vBT").html("--");	}
+			
+			}
+			</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+        $('#myModal').on('show.bs.modal', function (e) {
+            var image = $(e.relatedTarget).attr('src');
+            $(".img-responsive").attr("src", image);
+        });
+		
+			function bmi () {
+				var weight = $(".viWT").val();
+				var height = $(".viHT").val();	
+				if (height==null || height=="",weight==null || weight==""){
+					//$(".viBMI").val("");
+				}else{
+					var result2 = weight / (height * height);
+					result = Math.round(result2 * 10) / 10;
+					$(".viBMI").val(result);
+					
+					if (result<18.5)
+					$(".siBMI").text("(Underweight)");
+					if (result>=18.5 && result<=25)
+					$(".siBMI").text("(Normal)");
+					if (result>=25 && result<=30)
+					$(".siBMI").text("(Obese)");
+					if (result>30)
+					$(".siBMI").text("(Overweight)");
+										
+											
+						
+				}				
+				
+			}			
+		
+			 $(".viWT").keydown(function(){
+				bmi();
+			  });
+			 $(".viWT").keyup(function(){
+				bmi();
+			  });
+				
+			 $(".viHT").keydown(function(){
+				bmi();	  
+				});
+			 $(".viHT").keyup(function(){
+				bmi();	  
+				});
+			  
+  		
+	  
+});
+</script>				
+<script type="text/javascript">
+$(document).ready(function() {
+  if (window.File && window.FileList && window.FileReader) {
+    $("#files").on("change", function(e) {
+      var files = e.target.files,
+        filesLength = files.length;
+      for (var i = 0; i < filesLength; i++) {
+        var f = files[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var file = e.target;
+          $("<span class=\"pip\">" +
+            "<img data-toggle=\"modal\" data-target=\"#myModal\" class=\"imageThumb\" style=\"cursor:pointer;\" src=\"" + e.target.result + "\" title=\"" + f.name + "\"/>" +
+            "<br/><span class=\"remove\">Remove </span>" +
+            "</span>").insertAfter("#files");			
+          $(".remove").click(function(){
+            $(this).parent(".pip").remove();
+          });
+          
+          // Old code here
+          /*$("<img></img>", {
+            class: "imageThumb",
+            src: e.target.result,
+            title: file.name + " | Click to remove"
+          }).insertAfter("#files").click(function(){$(this).remove();});*/
+          
+        });
+        fileReader.readAsDataURL(f);
+      }
+    });
+  } else {
+    alert("Your browser doesn't support to File API")
+  }
+});
+    </script>
+			
+                                    <div role="tabpanel" class="tab-pane fade in" id="profile_settings">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="NameSurname" class="col-sm-2 control-label">Name Surname</label>
+                                                <div class="col-sm-10">
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" id="NameSurname" name="NameSurname" placeholder="Name Surname" value="Ryan Tipon, M.D., D.P.C.P" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Email" class="col-sm-2 control-label">Email</label>
+                                                <div class="col-sm-10">
+                                                    <div class="form-line">
+                                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="Email" value="example@example.com" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputExperience" class="col-sm-2 control-label">Experience</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="form-line">
+                                                        <textarea class="form-control" id="InputExperience" name="InputExperience" rows="3" placeholder="Experience"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputSkills" class="col-sm-2 control-label">Skills</label>
+
+                                                <div class="col-sm-10">
+                                                    <div class="form-line">
+                                                        <input type="text" class="form-control" id="InputSkills" name="InputSkills" placeholder="Skills">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <input type="checkbox" id="terms_condition_check" class="chk-col-red filled-in" />
+                                                    <label for="terms_condition_check">I agree to the <a href="#">terms and conditions</a></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-danger">SUBMIT</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade in" id="change_password_settings">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="OldPassword" class="col-sm-3 control-label">Old Password</label>
+                                                <div class="col-sm-9">
+                                                    <div class="form-line">
+                                                        <input type="password" class="form-control" id="OldPassword" name="OldPassword" placeholder="Old Password" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="NewPassword" class="col-sm-3 control-label">New Password</label>
+                                                <div class="col-sm-9">
+                                                    <div class="form-line">
+                                                        <input type="password" class="form-control" id="NewPassword" name="NewPassword" placeholder="New Password" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="NewPasswordConfirm" class="col-sm-3 control-label">New Password (Confirm)</label>
+                                                <div class="col-sm-9">
+                                                    <div class="form-line">
+                                                        <input type="password" class="form-control" id="NewPasswordConfirm" name="NewPasswordConfirm" placeholder="New Password (Confirm)" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-3 col-sm-9">
+                                                    <button type="submit" class="btn btn-danger">SUBMIT</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bootstrap Core Js -->
+    <script src="../plugins/bootstrap/js/bootstrap.js?<?php echo md5_file("plugins/bootstrap/js/bootstrap.js");?>"></script>
+
+    <!-- Select Plugin Js -->
+    <script src="../plugins/bootstrap-select/js/bootstrap-select.js?<?php echo md5_file("plugins/bootstrap-select/js/bootstrap-select.js");?>"></script>
+
+    <!-- Slimscroll Plugin Js -->
+    <script src="../plugins/jquery-slimscroll/jquery.slimscroll.js?<?php echo md5_file("plugins/jquery-slimscroll/jquery.slimscroll.js");?>"></script>
+
+    <!-- Waves Effect Plugin Js -->
+    <script src="../plugins/node-waves/waves.js?<?php echo md5_file("plugins/node-waves/waves.js");?>"></script>
+ 
+ <!-- Autosize Plugin Js -->
+    <script src="../plugins/autosize/autosize.js?<?php echo md5_file("plugins/autosize/autosize.js");?>"></script>
+    <!-- Jquery DataTable Plugin Js -->
+
+    <!-- Custom Js -->
+    <script src="../js/admin.js?<?php echo md5_file("js/admin.js");?>"></script>
+    <script src="../js/pages/main.js?<?php echo md5_file("js/pages/main.js");?>"></script>
+    <script src="../js/pages/jquery-datatable.js?<?php echo md5_file("js/pages/jquery-datatable.js");?>"></script>
+    <script src="../js/pages/examples/profile.js?<?php echo md5_file("js/pages/examples/profile.js");?>"></script>
+	
+    <!-- Demo Js -->
+    <script src="../js/demo.js?<?php echo md5_file("js/demo.js");?>"></script>
+
+	<script>
+$(document).ready(function(){
+ 
+    $.ajax({
+        url: './php/patient-profile.php?data=<?php echo $_GET["data"];?>',
+        type: 'get',
+        dataType: 'JSON',
+        success: function(response){
+            var len = response.length;
+            for(var i=0; i<len; i++){
+    
+				//Parse Doctor Info
+				$(".pname").html(response[i].name);				
+				$(".pAge").html(response[i].age);				
+				$(".pemail").html(response[i].email);				
+				$(".poccupation").html(response[i].occupation);				
+				
+				$(".display_picture").attr('src', response[i].dp);				
+				$(".basic-info").html(`<div style="padding-left:15px;"><div class="row"> <label>Birthday:</label> <span>` + response[i].bday + `</span> </div> <div class="row"> <label>Birth Place:</label> <span>` + response[i].bplace + `</span> </div> <div class="row"> <label>Age:</label> <span>` + response[i].age + ` yrs. old</span> </div> <div class="row"> <label>Gender:</label> <span>` + response[i].gender + `</span> </div> <div class="row"> <label>Blood Type</label> <span>` + response[i].btype + `</span> </div> <div class="clearfix"></div><br> <div class="row"> <label>Religion:</label> <span>` + response[i].religion + `</span> </div> <div class="row"> <label>Civil Status:</label> <span>` + response[i].status + `</span> </div> </div>`);				
+				$(".hmo").html(response[i].hmo);				
+				$(".contact-info").html(`<div style="padding-left:15px;"> <div class="row"> <label><i class="material-icons">location_on</i>Address:</label> <span>` + response[i].home_add + `</span> </div> <div class="row"> <label><i class="material-icons">smartphone</i>Mobile No.:</label> <span>` + response[i].contact_no + `</span> </div> <div class="row"> <label><i class="material-icons">local_phone</i>Tel. No.:</label> <span>` + response[i].tel_no + `</span> </div> </div>`);				
+				$(".occupation").html(`<div style="padding-left:15px;"> <div class="row"> <label>Occupation:</label> <span>` + response[i].occupation + `</span> </div> <div class="row"> <label>Employer's Name:</label> <span>` + response[i].employersname + `</span> </div> <div class="row"> <label>Employer's Address:</label> <span>` + response[i].employersaddress + `</span> </div> <div class="row"> <label>Employer's Phone No.:</label> <span>` + response[i].employersphoneno + `</span> </div> </div>`);				
+				$(".emergency").html(`<div style="padding-left:15px;"> <div class="row"> <label>Name:</label> <span>` + response[i].emergencyname + `</span> </div><div class="row"> <label>Address:</label> <span>` + response[i].emergencyaddress + `</span> </div>  <div class="row"> <label>Contact No.:</label> <span>` + response[i].emergencycontactno + `</span> </div> <div class="row"> <label>Relationship:</label> <span>` + response[i].emergencyrelationship + `</span> </div> </div>`);				
+				$(".physician").html(`<div style="padding-left:15px;"> <div class="row"> <label>Referring Physician:</label> <span>` + response[i].refferingphysician + `</span> </div> <div class="row"> <label>Primary Physician:</label> <span>` + response[i].primarycarephysician + `</span> </div> <div class="row"> <label>Other Physician:</label> <span>` + response[i].otherphysician + `</span> </div> </div>`);				
+				//$(".email").attr('title', email);
+				//$(".email").find('.email').text(email);
+            }
+
+        }
+    });
+	
+			$('#RECORDS').DataTable({
+					"language": {                
+					"infoFiltered": "",
+					"emptyTable": "NO RECORDS FOUND."
+					},responsive: {
+					details: {
+					    renderer: function ( api, rowIdx ) {
+						var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+						    var header = $( api.column( cell.column ).header() );
+						    return  '<p style="color:#00A"><b>'+header.text()+' : </b><br>'+api.cell( cell ).data()+'</p>';
+						} ).toArray().join('');
+ 
+						return data ?    $('<table/>').append( data ) :    false;
+					    }
+					}
+				    },
+			   	processing: false,
+				serverSide: false,
+				ajax: "./php/records.php?data=<?php echo $_GET["data"];?>", // json datasource				
+			});
+			$('#SOAP').DataTable({
+					"language": {                
+					"infoFiltered": "",
+					"emptyTable": "NO RECORDS FOUND."
+					},responsive: {
+					details: {
+					    renderer: function ( api, rowIdx ) {
+						var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+						    var header = $( api.column( cell.column ).header() );
+						    return  '<p style="color:#00A"><b>'+header.text()+' : </b><br>'+api.cell( cell ).data()+'</p>';
+						} ).toArray().join('');
+ 
+						return data ?    $('<table/>').append( data ) :    false;
+					    }
+					}
+				    },
+			   	processing: false,
+				serverSide: false,
+				ajax: "./php/medical-notes.php?data=<?php echo $_GET["data"];?>", // json datasource				
+			});
+			$('#PRESCRIPTION').DataTable({
+					"language": {                
+					"infoFiltered": "",
+					"emptyTable": "NO RECORDS FOUND."
+					},responsive: {
+					details: {
+					    renderer: function ( api, rowIdx ) {
+						var data = api.cells( rowIdx, ':hidden' ).eq(0).map( function ( cell ) {
+						    var header = $( api.column( cell.column ).header() );
+						    return  '<p style="color:#00A"><b>'+header.text()+' : </b><br>'+api.cell( cell ).data()+'</p>';
+						} ).toArray().join('');
+ 
+						return data ?    $('<table/>').append( data ) :    false;
+					    }
+					}
+				    },
+			   	processing: false,
+				serverSide: false,
+				ajax: "./php/prescriptions.php?data=<?php echo $_GET["data"];?>", // json datasource				
+			});
+			
+			
+	
+});	
+	
+	//Textarea auto growth
+    autosize($('textarea.auto-growth'));
+	
+	$(document).on('hidden.bs.modal', function (event) {
+  if ($('.modal:visible').length) {
+    $('body').addClass('modal-open');
+  }
+});
+	$('.nav-tabs-dropdown').each(function(i, elm) {
+
+	$(elm).text($(elm).next('ul').find('li.active a').text());
+
+	});
+
+	$('.nav-tabs-dropdown').on('click', function(e) {
+
+	e.preventDefault();
+
+	$(e.target).toggleClass('open').next('ul').slideToggle();
+
+	});
+
+	$('#nav-tabs-wrapper a[data-toggle="tab"]').on('click', function(e) {
+
+	e.preventDefault();
+
+	$(e.target).closest('ul').hide().prev('a').removeClass('open').text($(this).text());
+
+	});
+	</script>
+	<script type="text/javascript">
+$(document).ready(function(){
+
+	var maxField = 20; //Input fields increment limitation
+	var add_prescriptions0 = $('.add_prescriptions0'); //Add button selector
+	var add_remarks0 = $('.add_remarks0'); //Add button selector
+	var add_remarks1 = $('.add_remarks1'); //Add button selector
+	var add_remarks2 = $('.add_remarks2'); //Add button selector
+	var add_remarks3 = $('.add_remarks3'); //Add button selector
+	var add_TestRequest = $('.add_TestRequest'); //Add button selector
+	var add_Procedure = $('.add_Procedure'); //Add button selector
+	var wrapperPrescriptions0 = $('.field_Prescrioptions0'); //Input field wrapper
+	var wrapperRemarks0 = $('.field_remarks0'); //Input field wrapper
+	var wrapperRemarks1 = $('.field_remarks1'); //Input field wrapper
+	var wrapperRemarks2 = $('.field_remarks2'); //Input field wrapper
+	var wrapperRemarks3 = $('.field_remarks3'); //Input field wrapper
+	var wrapperTestRequest = $('.field_TestRequest'); //Input field wrapper
+	var wrapperProcedure = $('.field_Procedure'); //Input field wrapper
+	var fieldHTMLprescriptions0 = `<div>
+
+<details>
+<summary class="col-md-12"><strong>Prescription</strong>&emsp;<a href="javascript:void(0);" id="remove_button_prescriptions0" class="remove_button_prescriptions0 btn btn-danger btn-xs pull-right"><i class="fa fa-minus"></i> </a></summary>
+
+ <div class="clearfix"></div><br/>
+	<div class="col-md-6">
+	<label for="GenericName">Generic Name</label>
+	<input type="text" class="form-control" name="SOAPGenericName[]" placeholder="">	
+	<?php /* <select name="GenericName" class="form-class js-example-basic-single"  style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;" >
+	<?php $this->optmedicine();?>	
+	</select>*/?>
+	
+	</div>	
+	<div class="col-md-6">
+	<label for="BrandName">Brand Name</label>
+	<input type="text" class="form-control" name="SOAPBrandName[]" placeholder="">	
+	<?php /* <select name="GenericName" class="form-class js-example-basic-single"  style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;" >
+	<?php $this->optmedicine();?>	
+	</select>*/?>
+	
+	</div>	
+	
+	<div class="clearfix"></div><br/>
+
+	<div class="col-md-6">
+	<label for="Dose">Dose</label>
+	<input type="text" class="form-control" name="Dose[]" placeholder="eg. 100ml" >	
+	<?php /*<select name="Dose" class="form-class js-example-basic-single"  style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;" >
+	<?php $this->optmedicinedose();?>	
+	</select>*/?>
+	</div>
+	<div class="col-md-6">
+	<label for="Form">Form</label>
+	<input type="text" class="form-control" name="Form[]" placeholder="eg. Bottle,Tablet" >	
+	<?php /*<select name="Form" class="form-class js-example-basic-single"  style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;" >
+	<?php $this->optmedicineform();?>	
+	</select>*/?>
+	</div>
+	         
+	<div class="clearfix"></div><br/>			
+ 	
+	<div class="col-md-4">
+	<label for="Quantity">Quantity</label>
+	<input type="number" class="form-control" name="Quantity[]" value="0" placeholder="" >
+
+	</div>
+
+		
+
+	<div class="col-md-4">
+	<label for="Frequency">Frequency/Sig.</label>
+	<input type="text" class="form-control" name="Frequency[]" placeholder="" >
+	<?php /*<select name="Frequency" class="form-class js-example-basic-single1"  style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;" >
+	<option value="4 times a day">4 times a day</option>
+	</select>*/?>
+	</div>
+
+	<div class="clearfix"></div><br/>			
+ 	<div class="col-md-12">
+	<label for="Duration">Duration</label>
+	<input type="text" class="form-control" name="Duration[]" placeholder="" >
+	<?php //<input type="date" class="form-control" name="Duration" required>;?>
+	</div>
+
+
+	<div class="clearfix"></div><br/>			
+
+
+
+
+</details>
+
+	
+	
+	
+	&emsp;<a href="javascript:void(0);" id="remove_button_prescriptions0" class="remove_button_prescriptions0 btn btn-danger btn-xs" style="display:none;"><i class="fa fa-minus"></i> </a></div>`; //New input field html 
+	var fieldHTMLremarks0 = `<div>
+									<div class="col-xs-11">
+											<h2 class="card-inside-title">Remarks </span></h2>
+											<div class="input-group">
+												<div class="form-line">
+													<input type="text"  name="remarks0[]"class="form-control" value="" placeholder="Input Remarks" tabindex="1">
+												</div>
+											</div>																	
+									</div>
+									<div class="col-xs-1">
+									<a href="javascript:void(0);" class="remove_button0 btn btn-danger btn-xs"><i class="fa fa-minus"></i> </a></div></div>`; //New input field html 
+	var fieldHTMLremarks1 = `<div>
+									<div class="col-xs-11">
+											<h2 class="card-inside-title">Remarks </span></h2>
+											<div class="input-group">
+												<div class="form-line">
+													<input type="text"  name="remarks1[]"class="form-control" value="" placeholder="Input Remarks" tabindex="1">
+												</div>
+											</div>																	
+									</div>
+									<div class="col-xs-1">
+									<a href="javascript:void(0);" class="remove_button1 btn btn-danger btn-xs"><i class="fa fa-minus"></i> </a></div></div>`; //New input field html 
+	var fieldHTMLremarks2 = `<div>
+									<div class="col-xs-11">
+											<h2 class="card-inside-title">Remarks </span></h2>
+											<div class="input-group">
+												<div class="form-line">
+													<input type="text"  name="remarks2[]"class="form-control" value="" placeholder="Input Remarks" tabindex="1">
+												</div>
+											</div>																	
+									</div>
+									<div class="col-xs-1">
+									<a href="javascript:void(0);" class="remove_button2 btn btn-danger btn-xs"><i class="fa fa-minus"></i> </a></div></div>`; //New input field html 
+	var fieldHTMLremarks3 = `<div>
+									<div class="col-xs-11">
+											<h2 class="card-inside-title">Remarks </span></h2>
+											<div class="input-group">
+												<div class="form-line">
+													<input type="text"  name="remarks3[]"class="form-control" value="" placeholder="Input Remarks" tabindex="1">
+												</div>
+											</div>																	
+									</div>
+									<div class="col-xs-1">
+									<a href="javascript:void(0);" class="remove_button3 btn btn-danger btn-xs"><i class="fa fa-minus"></i> </a></div></div>`; //New input field html 
+	var fieldHTMLTestRequest = '<div><strong>Test Request:</strong> <input type="text" style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;"  name="TestRequest[]" value="" placeholder=""/>&emsp;<a href="javascript:void(0);" class="remove_TestRequest btn btn-danger btn-xs"><i class="fa fa-minus"></i> </a></div>'; //New input field html 
+	var fieldHTMLProcedure = '<div><strong>Procedure:</strong> <input type="text" style="padding: 6px 12px;border: 1px solid #092;box-shadow: none;border: 1px solid #e2e2e4;color: #068;background: #fff;width: 80%;color: #000;height: 38px !important;"  name="Procedure[]" value="" placeholder=""/>&emsp;<a href="javascript:void(0);" class="remove_Procedure btn btn-danger btn-xs"><i class="fa fa-minus"></i> </a></div>'; //New input field html 
+	var x = 0; //Initial field counter is 1
+	var x0 = 0; //Initial field counter is 1
+	var x1 = 0; //Initial field counter is 1
+	var x2 = 0; //Initial field counter is 1
+	var x3 = 0; //Initial field counter is 1
+	var x4 = 0; //Initial field counter is 1
+	
+	//Once add button is clicked
+	$(add_prescriptions0).click(function(){
+		//Check maximum number of input fields
+		if(x < maxField){ 
+			x++; //Increment field counter
+			$(wrapperPrescriptions0).append(fieldHTMLprescriptions0); //Add field html
+		}
+	});
+	//Once add button is clicked
+	$(add_remarks0).click(function(){
+		//Check maximum number of input fields
+		if(x0 < maxField){ 
+			x0++; //Increment field counter
+			$(wrapperRemarks0).append(fieldHTMLremarks0); //Add field html
+		}
+	});
+	//Once add button is clicked
+	$(add_remarks1).click(function(){
+		//Check maximum number of input fields
+		if(x1 < maxField){ 
+			x1++; //Increment field counter
+			$(wrapperRemarks1).append(fieldHTMLremarks1); //Add field html
+		}
+	});
+	//Once add button is clicked
+	$(add_remarks2).click(function(){
+		//Check maximum number of input fields
+		if(x2 < maxField){ 
+			x2++; //Increment field counter
+			$(wrapperRemarks2).append(fieldHTMLremarks2); //Add field html
+		}
+	});
+	//Once add button is clicked
+	$(add_remarks3).click(function(){
+		//Check maximum number of input fields
+		if(x2 < maxField){ 
+			x2++; //Increment field counter
+			$(wrapperRemarks3).append(fieldHTMLremarks3); //Add field html
+		}
+	});
+	
+	//Once add button is clicked
+	$(add_TestRequest).click(function(){
+		//Check maximum number of input fields
+		if(x3 < 1){ 
+			x3++; //Increment field counter
+			$(wrapperTestRequest).append(fieldHTMLTestRequest); //Add field html
+		}
+	});
+	
+	//Once add button is clicked
+	$(add_Procedure).click(function(){
+		//Check maximum number of input fields
+		if(x4 < 1){ 
+			x4++; //Increment field counter
+			$(wrapperProcedure).append(fieldHTMLProcedure); //Add field html
+		}
+	});
+	
+	//Once remove button is clicked
+	$(wrapperPrescriptions0).on('click', '.remove_button_prescriptions0', function(e){
+		e.preventDefault();
+		$(this).parent().parent().parent().remove();//$(this).parent('div').remove(); //Remove field html
+		x--; //Decrement field counter
+	});
+	//Once remove button is clicked
+	$(wrapperRemarks0).on('click', '.remove_button0', function(e){
+		e.preventDefault();
+		$(this).parent('div').parent('div').remove(); //Remove field html
+		x0--; //Decrement field counter
+	});
+	//Once remove button is clicked
+	$(wrapperRemarks1).on('click', '.remove_button1', function(e){
+		e.preventDefault();
+		$(this).parent('div').parent('div').remove(); //Remove field html
+		x1--; //Decrement field counter
+	});
+	//Once remove button is clicked
+	$(wrapperRemarks2).on('click', '.remove_button2', function(e){
+		e.preventDefault();
+		$(this).parent('div').parent('div').remove(); //Remove field html
+		x2--; //Decrement field counter
+	});
+	//Once remove button is clicked
+	$(wrapperRemarks3).on('click', '.remove_button3', function(e){
+		e.preventDefault();
+		$(this).parent('div').parent('div').remove(); //Remove field html
+		x2--; //Decrement field counter
+	});
+	//Once remove button is clicked
+	$(wrapperTestRequest).on('click', '.remove_TestRequest', function(e){
+		e.preventDefault();
+		$(this).parent('div').remove(); //Remove field html
+		x3--; //Decrement field counter
+	});
+	//Once remove button is clicked
+	$(wrapperProcedure).on('click', '.remove_Procedure', function(e){
+		e.preventDefault();
+		$(this).parent('div').remove(); //Remove field html
+		x4--; //Decrement field counter
+	});
+});
+</script>
+</body>
+
+</html>
