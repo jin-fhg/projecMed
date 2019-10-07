@@ -25,7 +25,7 @@ SECRET_KEY = '5q(-$bgf8*n3u99uafpq2(1q+ji3)(f*owxt2yyrpr@@bm4x9c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['projectmedical.herokuapp.com']
 
 
 # Application definition
@@ -119,5 +119,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+#Adding static_root directory for production handling
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
