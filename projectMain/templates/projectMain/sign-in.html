@@ -48,16 +48,17 @@
 					{% endfor %}
                 {% endif %}
                 <form id="sign_in" method="POST">
+                    {% csrf_token %}
                     <div class="msg">Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.
 - Buddha</div>
-
+                    <span class="text-danger small">{{ form.errors }}</span>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-                          {{ form.username }}
-                          <!-- <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>-->
+
+                           <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
                         </div>
                     </div>
                     <div class="input-group">
@@ -65,8 +66,8 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                           {{ form.password }}
-                           <!-- <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>-->
+
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required
                         </div>
                     </div>
                     <div class="row">
@@ -139,26 +140,10 @@
     </div>
   </div>
 
-<form class="user" method="POST">
-                    <div class="form-group" method="POST">
-						 {% csrf_token %}
-						 {% for field in form %}
-							<center>
-
-							{{ field.errors }}
-							{{ field.label_tag }}
-							<br>
-							{{ field }} </center><br>
-							{% endfor %}
-                    </div>
-					<center>
-					<button class="btn btn-outline-info" type="submit">Login</button>
-					</center>
-</form>
 <!--modal--> 
 	{% load static %}
     <!-- Jquery Core Js -->
-    <script src="{% static 'projectMain/plugins/jquery/jquery.min.js' %}"></script>
+    <!--<script src="{% static 'projectMain/plugins/jquery/jquery.min.js' %}"></script>-->
 
     <!-- Bootstrap Core Js -->
     <script src="{% static 'projectMain/plugins/bootstrap/js/bootstrap.js' %}"></script>
