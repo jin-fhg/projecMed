@@ -51,7 +51,7 @@ def signup(request):
             user.save()
 
             current_site = get_current_site(request)
-            mail_subject = 'Activate your Farm Account.'
+            mail_subject = 'Activate your Account.'
             message = render_to_string('projectMain/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
