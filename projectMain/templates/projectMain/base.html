@@ -292,11 +292,11 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <img src="{% static 'projectMain/images/male.png' %}" class="doctor_dp" width="48" height="48" title="{TITLE}" />
+                    <a href="#"><img src="{% static 'projectMain/images/male.png' %}" class="doctor_dp" width="48" height="48" title="{TITLE}" /></a>
                 </div>
                 <div class="info-container">
-                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{NAME}</div>
-                    <div class="email" title="{EMAIL}">{EMAIL}</div>
+                    <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</div>
+                    <div class="email" title="{EMAIL}">{{ user.email }}</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -546,14 +546,18 @@
         </aside>
         <!-- #END# Right Sidebar -->
     </section>
-                <!--This is where the contents go-->
-                {% block content %} {% endblock %}
 
-    <!-- Bootstrap Core Js -->
-    {% load static %}
-    <script src="{% static 'projectMain/plugins/bootstrap/js/bootstrap.js' %}"></script>
+           <!--This is where the contents go-->
 
-    <!-- Select Plugin Js -->
+            {% block content %} {% endblock %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'projectMain/SPA/toufiqElahySPA.css' %}"/>
+<script src="{% static 'projectMain/SPA/toufiqElahySPA.js?v=1' %}"></script>
+
+
+
+     Select Plugin Js -->
     <script src="{% static 'projectMain/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 
     <!-- Slimscroll Plugin Js -->
@@ -570,8 +574,8 @@
 
     <!-- Sparkline Chart Plugin Js -->
     <script src="{% static 'projectMain/plugins/jquery-sparkline/jquery.sparkline.js' %}"></script>
-	
-	
+
+
 	<!-- Custom Js -->
     <script src="{% static 'projectMain/js/admin.js' %}"></script>
     <script src="{% static 'projectMain/js/pages/main.js' %}"></script>
@@ -592,28 +596,28 @@
 	<script type="text/javascript" src="../js/events4.js"></script>
 	<script type="text/javascript" src="../js/events5.js"></script>
 	<script type="text/javascript" src="../js/events6.js"></script>
-	
+
 	<script>
 $('.nav-tabs-dropdown').each(function(i, elm) {
-    
+
     $(elm).text($(elm).next('ul').find('li.active a').text());
-    
+
 });
-  
+
 $('.nav-tabs-dropdown').on('click', function(e) {
 
     e.preventDefault();
-    
+
     $(e.target).toggleClass('open').next('ul').slideToggle();
-    
+
 });
 
 $('#nav-tabs-wrapper a[data-toggle="tab"]').on('click', function(e) {
 
     e.preventDefault();
-    
+
     $(e.target).closest('ul').hide().prev('a').removeClass('open').text($(this).text());
-      
+
 });
 </script>-->
 

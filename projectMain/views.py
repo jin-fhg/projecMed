@@ -30,6 +30,10 @@ def newsfeed(request):
 def patients(request):
     return render(request, 'projectMain/patient.html')
 
+
+def profile(request):
+    return render(request, 'projectMain/profile.html')
+
 def signin(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

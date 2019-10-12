@@ -51,7 +51,8 @@
                     {% csrf_token %}
                     <div class="msg">Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.
 - Buddha</div>
-                    <span class="text-danger small">{{ form.errors }}</span>
+
+                    <span class="text-danger small">{{ form.non_field_errors }}</span>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
@@ -67,7 +68,7 @@
                         </span>
                         <div class="form-line">
 
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                         </div>
                     </div>
                     <div class="row">
@@ -143,7 +144,7 @@
 <!--modal--> 
 	{% load static %}
     <!-- Jquery Core Js -->
-    <!--<script src="{% static 'projectMain/plugins/jquery/jquery.min.js' %}"></script>-->
+   <!--<script src="{% static 'projectMain/plugins/jquery/jquery.min.js' %}"></script>-->
 
     <!-- Bootstrap Core Js -->
     <script src="{% static 'projectMain/plugins/bootstrap/js/bootstrap.js' %}"></script>

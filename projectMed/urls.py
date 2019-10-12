@@ -25,6 +25,7 @@ urlpatterns = [
     path('newsfeed/', mainView.newsfeed, name='newsfeed'),
     path('appointments/', mainView.appointment, name='appointment'),
     path('patients/', mainView.patients, name='patients'),
+    path('profile/',mainView.profile, name='profile'),
     path('sign-in/', authviews.LoginView.as_view(template_name='projectMain/sign-in.html'), name = 'sign-in'),
     path('sign-up/', mainView.signup, name='sign-up'),
     path('reset-password/', authviews.PasswordResetView.as_view(template_name='projectMain/forgot-password.html'),
