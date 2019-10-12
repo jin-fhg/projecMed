@@ -48,18 +48,20 @@
 					{% endfor %}
                 {% endif %}
                 <form id="sign_in" method="POST">
-                    {% csrf_token %}
                     <div class="msg">Health is the greatest gift, contentment the greatest wealth, faithfulness the best relationship.
 - Buddha</div>
 
+<<<<<<< HEAD
                     <span class="text-danger small">{{ form.non_field_errors }}</span>
+=======
+>>>>>>> parent of 04a1196... Password Reset Function Created. Will try to edit userprofile
                     <div class="input-group">
                         <span class="input-group-addon">
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
-
-                           <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
+                          {{ form.username }}
+                          <!-- <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>-->
                         </div>
                     </div>
                     <div class="input-group">
@@ -67,8 +69,13 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
+<<<<<<< HEAD
 
                             <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+=======
+                           {{ form.password }}
+                           <!-- <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>-->
+>>>>>>> parent of 04a1196... Password Reset Function Created. Will try to edit userprofile
                         </div>
                     </div>
                     <div class="row">
@@ -141,10 +148,30 @@
     </div>
   </div>
 
+<form class="user" method="POST">
+                    <div class="form-group" method="POST">
+						 {% csrf_token %}
+						 {% for field in form %}
+							<center>
+
+							{{ field.errors }}
+							{{ field.label_tag }}
+							<br>
+							{{ field }} </center><br>
+							{% endfor %}
+                    </div>
+					<center>
+					<button class="btn btn-outline-info" type="submit">Login</button>
+					</center>
+</form>
 <!--modal--> 
 	{% load static %}
     <!-- Jquery Core Js -->
+<<<<<<< HEAD
    <!--<script src="{% static 'projectMain/plugins/jquery/jquery.min.js' %}"></script>-->
+=======
+    <script src="{% static 'projectMain/plugins/jquery/jquery.min.js' %}"></script>
+>>>>>>> parent of 04a1196... Password Reset Function Created. Will try to edit userprofile
 
     <!-- Bootstrap Core Js -->
     <script src="{% static 'projectMain/plugins/bootstrap/js/bootstrap.js' %}"></script>
