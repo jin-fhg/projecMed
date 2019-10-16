@@ -16,8 +16,17 @@ class Account(models.Model):
     userName = models.OneToOneField(User, on_delete=models.CASCADE)
     #email_address = models.CharField(max_length=100)
     accType = models.CharField(max_length=100,  default="")
-    deleted = models.IntegerField()
-    timestamp = models.IntegerField()
+    lastname = models.CharField(max_length=100,  default="")
+    firstname = models.CharField(max_length=100,  default="")
+    middlename = models.CharField(max_length=100,  default="")
+    suffix = models.CharField(max_length=100,  default="")
+    prefix = models.CharField(max_length=100,  default="")
+    sex = models.CharField(max_length=100,  default="")
+    birthdate = models.CharField(max_length=100, default='')
+    birthplace = models.CharField(max_length=100, default='')
+    image = models.ImageField(default='', upload_to='profile_pics', blank=True)
+    #deleted = models.IntegerField()
+    #timestamp = models.IntegerField()
 
     def __str__(self):
         return f'{self.userName.username} Profile'

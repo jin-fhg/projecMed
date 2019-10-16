@@ -19,6 +19,10 @@ from django.contrib.auth import views as authviews
 from projectMain import views as mainView
 from projectMain.forms import LoginForm
 
+#for media URLS
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/', mainView.dashboard, name='dashboard'),
@@ -26,7 +30,8 @@ urlpatterns = [
     path('appointments/', mainView.appointment, name='appointment'),
     path('patients/', mainView.patients, name='patients'),
     path('profile/',mainView.profile, name='profile'),
-    path('sign-in/', authviews.LoginView.as_view(template_name='projectMain/sign-in.html'), name = 'sign-in'),
+    path('sign-in/', authviews.LoginView.as_view(template_name='projectMain/sign-in.html', authentication_form= LoginForm), name = 'sign-in'),
+    path('logout', mainView.logout, name = 'logout'),
     path('sign-up/', mainView.signup, name='sign-up'),
     path('forgot-password/', authviews.PasswordResetView.as_view(template_name='projectMain/forgot-password.html'), name='forgotpw'),
     path('password-reset/done/', authviews.PasswordResetDoneView.as_view(template_name='projectMain/password-reset-done.html'),name='password_reset_done'),
@@ -39,3 +44,7 @@ urlpatterns = [
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',mainView.activate, name='activate')
 
 ]
+
+# this loadds the images through the path that we set up in settingspy
+if settings.DEBUG:
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

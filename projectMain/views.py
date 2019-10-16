@@ -1,12 +1,16 @@
+from django.contrib.auth.views import logout_then_login
 from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect
-from .forms import userForm, LoginForm
+from .forms import userForm, profileForm
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+
 
 #For Email Verification
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
@@ -17,31 +21,47 @@ from django.http import HttpResponse, Http404
 #Message Notification Alert
 from django.contrib import messages
 
-def dashboard(request):
-    return render(request, 'projectMain/dashboard.html')
 
+@login_required
+def dashboard(request):
+    if request.method == 'POST':
+        form = profileForm(request.POST, instance=request.user.account)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = profileForm(instance=request.user.account)
+
+    return render(request, 'projectMain/dashboard.html', {'form':form})
+
+@login_required
 def appointment(request):
     return render(request, 'projectMain/appointment.html')
 
-
+@login_required
 def newsfeed(request):
     return render(request, 'projectMain/newsfeed.html')
 
+@login_required
 def patients(request):
     return render(request, 'projectMain/patient.html')
 
-
+@login_required
 def profile(request):
-    return render(request, 'projectMain/profile.html')
+    if request.method == 'POST':
+        form = profileForm(request.POST, request.FILES, instance=request.user.account)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = profileForm(instance=request.user.account)
+
+    return render(request, 'projectMain/profile.html', {'form': form})
 
 def signin(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-
-    else:
-        form = userForm()
 
     return  render(request, 'projectMain/sign-in.html')
+
 
 def signup(request):
     if request.method == 'POST':
@@ -89,3 +109,8 @@ def activate(request, uidb64, token):
 def forgotpw(request):
 
     return render(request, 'projectMain/forgot-password.html')
+
+@login_required
+def logout(request):
+    return logout_then_login(request, reverse('sign-in'))
+

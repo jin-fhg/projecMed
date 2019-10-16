@@ -5057,20 +5057,20 @@ section.content {
       font-size: 18px;
       color: #555; }
   .input-group input[type="text"],
-  .input-group .form-control {
+  .input-group .form-control, select{
     border: none;
     box-shadow: none;
     padding-left: 0; }
-  .input-group .form-control:focus {
+  .input-group .form-control:focus, select {
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
     -ms-box-shadow: none !important;
     box-shadow: none !important; }
 
-.input-group.input-group-sm .input-group-addon i {
+.input-group.input-group-sm .input-group-addon i, select {
   font-size: 14px; }
 
-.input-group.input-group-sm .form-control {
+.input-group.input-group-sm .form-control, select {
   font-size: 12px; }
 
 .input-group.input-group-lg .input-group-addon i {
@@ -5087,7 +5087,7 @@ section.content {
 .form-horizontal .form-group {
   margin-bottom: 0; }
 
-.form-group {
+.form-group, select {
   width: 100%;
   margin-bottom: 25px; }
   .form-group .form-control {

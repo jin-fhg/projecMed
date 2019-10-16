@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	var DOMAIN = "http://"+window.location.hostname;//"http://localhost";
-	
+
 	$(function () {
 		$('#sign_in').validate({
 			highlight: function (input) {
@@ -15,17 +15,17 @@ $(document).ready(function(){
 			}
 		});
 	}); 
-	
+
 	//For Login Part
 	$("#sign_in").on("submit",function(e){
 		e.preventDefault();
-		
+
 		if( $('#sign_in').valid() ) {
 		    //submit the form via ajax
 			$.ajax({
 			url: DOMAIN+"/includes/process.php",
 			type: 'POST',
-			processData: false, // important 
+			processData: false, // important
             contentType: false, // important
 			// pass the form in the FormData constructor to send all the data inside the form
 			data: new FormData(this),
@@ -44,9 +44,9 @@ $(document).ready(function(){
 						}, 1500);
 						});
 
-						
+
 					}else if ($.trim(result)=="LOGIN_SUCCESS2"){
-				
+
 						swal({
 						  type: 'warning',
 						  title: 'LOGIN_SUCCESS2',
@@ -59,19 +59,19 @@ $(document).ready(function(){
 						});
 
 					}else{
-						
+
 
 						swal({
 						  type: 'error',
 						  title: result,
 						  showConfirmButton: true
-						  
+
 						},function () {
 						setTimeout(function () {
 							//window.location.href = "?p=home";
 						}, 1000);
-						});					
-						
+						});
+
 					}
 			},
 			error: function(xhr, result, errorThrown){
@@ -87,11 +87,11 @@ $(document).ready(function(){
 					});
 			}
 		})
-		
+
 		} else {
 		   //show errors
 		}
-		
+
 	})
 
 

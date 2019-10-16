@@ -57,8 +57,11 @@
                             <i class="material-icons">person</i>
                         </span>
                         <div class="form-line">
+                      {{ form.username.errors }}
+                      {{ form.username }}
 
-                      <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
+
+                      <!--<input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>-->
                         </div>
                     </div>
                     <div class="input-group">
@@ -66,8 +69,10 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
+                            {{ form.password.errors }}
+                            {{ form.password }}
 
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                            <!--<input type="password" class="form-control" name="password" id="password" placeholder="Password" required>-->
 
 
 

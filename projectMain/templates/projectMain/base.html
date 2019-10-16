@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>HIP-MD - Dashboard</title>
+    <title>HIP-MD - {% block title %} {% endblock %}</title>
     <!-- Favicon-->
     {% load static %}
     <link rel="icon" href="{% static 'projectMain/images/favicon.ico' %}" type="image/x-icon">
@@ -22,7 +22,7 @@
 
     <!-- Animation Css -->
     <link href="{% static 'projectMain/plugins/animate-css/animate.css' %}" rel="stylesheet" />
-	
+
     <!-- JQuery DataTable Css -->
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
@@ -44,7 +44,7 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{% static 'projectMain/css/themes/all-themes.css' %}" rel="stylesheet" />
-	
+
 	<link rel="stylesheet" href="{% static 'projectMain/css/calendar.css' %}" />
 </head>
 
@@ -86,7 +86,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-				<a class="navbar-brand" href="javascript:void(0);"><img style="width:119px;height:60px;margin-top:-20px;-webkit-filter: drop-shadow(1px 1px 0 white);drop-shadow(-1px -1px 0 white);filter: drop-shadow(0px 0px 0 white) drop-shadow(-1px -1px 0 white);" src="{% static 'projectMain/images/Logo.png' %}" alt=""></a>
+				<a class="navbar-brand" href="javascript:void(0);"><img style="width:119px;height:60px;margin-top:-20px;-webkit-filter: drop-shadow(1px 1px 0 white);drop-shadow(-1px -1px 0 white);filter: drop-shadow(0px 0px 0 white) drop-shadow(-1px -1px 0 white);" src="images/Logo.png" alt=""></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -292,7 +292,12 @@
             <!-- User Info -->
             <div class="user-info">
                 <div class="image">
-                    <a href="#"><img src="{% static 'projectMain/images/male.png' %}" class="doctor_dp" width="48" height="48" title="{TITLE}" /></a>
+                    {% if user.account.image %}
+                        <a href="{% url 'profile' %}"><img src="{{ user.account.image.url }}" class="doctor_dp" width="48" height="48" title="" /></a>
+                    {% else %}
+                        <img src="{% static 'projectMain/images/male.png' %}" class="doctor_dp" width="48" height="48" title="{TITLE}" />
+                    {% endif %}
+
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</div>
@@ -300,13 +305,13 @@
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
-                            <li><a href="javascript:void(0);"><i class="material-icons">person</i>Profile</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#profilemodal"><i class="material-icons">person</i>Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="javascript:void(0);"><i class="material-icons">group</i>Followers</a></li>
                             <li><a href="javascript:void(0);"><i class="material-icons">shopping_cart</i>Sales</a></li>
                             <li><a href="javascript:void(0);"><i class="material-icons">favorite</i>Likes</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="javascript:void(0);"><i class="material-icons">input</i>Sign Out</a></li>
+                            <li><a href="{% url 'logout' %}"><i class="material-icons">input</i>Sign Out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -386,7 +391,7 @@
                             </li>
                         </ul>
                     </li>
- 
+
                 </ul>
             </div>
             <!-- #Menu -->
@@ -546,18 +551,40 @@
         </aside>
         <!-- #END# Right Sidebar -->
     </section>
-
            <!--This is where the contents go-->
 
             {% block content %} {% endblock %}
 
 
-<link rel="stylesheet" type="text/css" href="{% static 'projectMain/SPA/toufiqElahySPA.css' %}"/>
-<script src="{% static 'projectMain/SPA/toufiqElahySPA.js?v=1' %}"></script>
 
+    	<!--Modal-->
+	  <div class="modal fade" id="profilemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<form method="POST" enctype="multipart/form-data">
+             {% csrf_token %}
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Update Profile</h5>
+			  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			  </button>
+			</div>
+			<div class="modal-body">{{ form.as_p }}</div>
+			<div class="modal-footer">
+			  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+			  <button class="btn btn-primary"  type = "submit">Submit</button>
 
+			</div>
+			</form>
+		  </div>
+		</div>
+	  </div>
 
-     Select Plugin Js -->
+    <!-- Bootstrap Core Js -->
+    {% load static %}
+    <script src="{% static 'projectMain/plugins/bootstrap/js/bootstrap.js' %}"></script>
+
+    <!-- Select Plugin Js -->
     <script src="{% static 'projectMain/plugins/bootstrap-select/js/bootstrap-select.js' %}"></script>
 
     <!-- Slimscroll Plugin Js -->
@@ -620,7 +647,29 @@ $('#nav-tabs-wrapper a[data-toggle="tab"]').on('click', function(e) {
 
 });
 </script>-->
-
+<!--<script>
+$('#profilemodal').on('submit','.create-form' , function(){
+    var form = $(this);
+    var fd = new FormData(this);
+    $.ajax({
+        url: form.attr('data-url'),
+        data: fd,
+        type: form.attr('method'),
+        dataType: 'json',
+        processData: false,
+        contentType: false,
+        success: function(data){
+            if(data.form_is_valid){
+                $('#meal-table tbody').html(data.meal_list);
+            $('#modal-meal').modal('hide');
+        } else {
+            $('#modal-meal .modal-content').html(data.html_form)
+        }
+    }
+    })
+    return false;
+})
+</script>-->
 </body>
 
 </html>
