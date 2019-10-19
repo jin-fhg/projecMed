@@ -22,8 +22,9 @@ $(document).ready(function(){
 
 		if( $('#sign_in').valid() ) {
 		    //submit the form via ajax
+
 			$.ajax({
-			url: DOMAIN+"/includes/process.php",
+			url: '/auth/',
 			type: 'POST',
 			processData: false, // important
             contentType: false, // important

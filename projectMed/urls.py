@@ -41,7 +41,8 @@ urlpatterns = [
     path('password-reset-complete/',
          authviews.PasswordResetCompleteView.as_view(template_name='projectMain/password_reset_complete.html'),
          name='password_reset_complete'),
-    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',mainView.activate, name='activate')
+    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',mainView.activate, name='activate'),
+    #path('auth/', mainView.auth, name = 'auth')
 
 ]
 

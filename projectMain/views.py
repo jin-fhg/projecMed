@@ -21,6 +21,11 @@ from django.http import HttpResponse, Http404
 #Message Notification Alert
 from django.contrib import messages
 
+from django.http import JsonResponse
+#Authenticatio response
+from django.contrib.auth import authenticate
+from django.http import JsonResponse
+import json
 
 @login_required
 def dashboard(request):
@@ -113,4 +118,17 @@ def forgotpw(request):
 @login_required
 def logout(request):
     return logout_then_login(request, reverse('sign-in'))
+
+# def auth(request):
+#     if request.method == 'POST':
+#         user = authenticate(username=request.username, password= request.password)
+#         if user is not None:
+#             dump = json.dumps(user)
+#             return HttpResponse(dump, content_type='application/json')
+#         else:
+#             html = "<html><body>No User Found</body></html>"
+#             return HttpResponse(html)
+
+
+
 
