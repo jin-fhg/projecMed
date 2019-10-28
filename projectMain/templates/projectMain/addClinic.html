@@ -1,0 +1,44 @@
+﻿{% extends 'projectMain/base2.html' %}
+
+{% block contentform %}
+<body class="signup-page" style="max-width: 500px;">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="signup-box">
+        <div class="card">
+            <div class="body">
+				<div class="logo">
+                    {% load static %}
+					<a href="javascript:void(0);"><img style="width:250px;" src="{% static 'projectMain/images/Logo.png' %}" alt=""></a>
+				</div>			
+                <form id="sign_up" method="POST">
+                    {% csrf_token %}
+                    <div class="msg">Add Clinic</div>
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">person</i>
+                        </span>
+                        <div class="form-line">
+<!--                            {{ cform.name.errors }}
+                            {{ cform.name }}-->
+                            {{ cform.as_p }}
+                            <!--<input type="text" class="form-control" name="namesurname" placeholder="Name Surname" required autofocus>-->
+                        </div>
+                    </div>
+<!--                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <i class="material-icons">email</i>
+                        </span>
+                        <div class="form-line">
+                            {{ cform.address.errors }}
+                            {{ cform.address }}
+                            &lt;!&ndash;<input type="email" class="form-control" name="email" placeholder="Email Address" required>&ndash;&gt;
+                        </div>
+                    </div>-->
+
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SUBMIT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contentform %}

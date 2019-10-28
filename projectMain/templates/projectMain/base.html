@@ -301,7 +301,7 @@
                 </div>
                 <div class="info-container">
                     <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ user.username }}</div>
-                    <div class="email" title="{EMAIL}">{{ user.email }}</div>
+                    <div class="email" title="{{ user.email }}">{{ user.email }}</div>
                     <div class="btn-group user-helper-dropdown">
                         <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                         <ul class="dropdown-menu pull-right">
@@ -572,13 +572,15 @@
 			<div class="modal-body">{{ form.as_p }}</div>
 			<div class="modal-footer">
 			  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-			  <button class="btn btn-primary"  type = "submit">Submit</button>
+			  <button class="btn btn-primary"  type = "submit" name="profilebtn">Submit</button>
 
 			</div>
 			</form>
 		  </div>
 		</div>
 	  </div>
+
+
 
     <!-- Bootstrap Core Js -->
     {% load static %}

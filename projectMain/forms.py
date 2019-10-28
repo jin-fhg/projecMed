@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-from .models import Account
+from .models import Account, Patient, Clinic
 
 #login form template
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -68,3 +68,36 @@ class profileForm(forms.ModelForm):
         model = Account
         fields = ['image', 'firstname','lastname','middlename','suffix','prefix','sex','birthdate','birthplace']
 
+
+class patientForm(forms.ModelForm):
+    firstname = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'name': 'firstname', 'placeholder': 'First Name', 'type': 'text',
+               'id': 'firstname'}))
+    lastname = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             'name': 'lastname',  'placeholder': 'Last Name', 'type': 'text', 'id': 'lastname'}))
+    middlename = forms.CharField(required=False,widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'middlename',  'placeholder': 'Middle Name', 'type': 'text', 'id': 'middlename'}))
+    suffix = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'suffix',  'placeholder': 'Suffix', 'type': 'text', 'id': 'suffix'}))
+    prefix = forms.CharField(required=False, widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'prefix',  'placeholder': 'Prefix', 'type': 'text', 'id': 'prefix'}))
+    sex = forms.CharField(widget=forms.Select(choices=sex, attrs={'class': 'regDropDown', 'name': 'sex',  'placeholder': 'Sex', 'type': 'select', 'id': 'sex'}))
+    birthdate = forms.DateField(required=False, widget=forms.DateInput(attrs={'class': 'form-control', 'name': 'birthdate',  'placeholder': 'Birth Date', 'type': 'date', 'id': 'birthdate'}))
+    birthplace = forms.CharField(required= False, max_length=100,
+                                 widget=forms.TextInput(
+                                     attrs={'class': 'form-control', 'name': 'birthplace', 'placeholder': 'Birth Place',
+                                            'type': 'text', 'id': 'birthplace'})
+                                 )
+
+    class Meta:
+        model = Patient
+        fields = ['firstname', 'lastname', 'middlename', 'suffix', 'prefix', 'sex', 'birthdate','birthplace']
+
+
+class clinicForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(
+        attrs={'class': 'form-control', 'name': 'name', 'placeholder': 'Clinic', 'type': 'text',
+               'id': 'name'}))
+    address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control',
+                'name': 'address',  'placeholder': 'Address', 'type': 'text', 'id': 'address'}))
+
+    class Meta:
+        model = Clinic
+        fields = ['name', 'address']

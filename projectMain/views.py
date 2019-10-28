@@ -2,7 +2,7 @@ from django.contrib.auth.views import logout_then_login
 from django.shortcuts import render
 # Create your views here.
 from django.shortcuts import render, redirect
-from .forms import userForm, profileForm
+from .forms import userForm, profileForm, patientForm, clinicForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -23,9 +23,19 @@ from django.contrib import messages
 
 from django.http import JsonResponse
 #Authenticatio response
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
+
+# Error Logger
+import logging
+
+#import from models
+from .models import *
+
+#Instantiate Error Logging
+logger = logging.getLogger(__name__)
 
 @login_required
 def dashboard(request):
@@ -37,7 +47,20 @@ def dashboard(request):
     else:
         form = profileForm(instance=request.user.account)
 
-    return render(request, 'projectMain/dashboard.html', {'form':form})
+    if request.method == 'POST' and not form.is_valid():
+        cform = clinicForm(request.POST, instance=request.user.account)
+        if cform.is_valid():
+            cform.save()
+            return redirect('dashboard')
+    else:
+        cform = clinicForm()
+        instance = request.user.account
+        showclinic = Clinic.objects.filter(account_id = instance)
+        context = {'form': form,
+                   'cform': cform,
+                    'showclinic': showclinic
+                   }
+    return render(request, 'projectMain/dashboard.html', context)
 
 @login_required
 def appointment(request):
@@ -49,7 +72,17 @@ def newsfeed(request):
 
 @login_required
 def patients(request):
-    return render(request, 'projectMain/patient.html')
+    if request.method == 'POST':
+        pform = patientForm(request.POST)
+        if pform.is_valid():
+            patient = pform.save(commit=False)
+            patient.save()
+            patient.doctor.add(request.user.account)
+            return redirect('patient')
+    else:
+        pform = patientForm()
+
+    return render(request, 'projectMain/patient.html', {'pform': pform})
 
 @login_required
 def profile(request):
@@ -63,9 +96,9 @@ def profile(request):
 
     return render(request, 'projectMain/profile.html', {'form': form})
 
+@csrf_exempt
 def signin(request):
-
-    return  render(request, 'projectMain/sign-in.html')
+    return render(request, 'projectMain/sign-in.html')
 
 
 def signup(request):
@@ -78,7 +111,7 @@ def signup(request):
             password = form.cleaned_data.get('password')
 
             user.save()
-
+            user.accounttype.access = 1
             current_site = get_current_site(request)
             mail_subject = 'Activate your Account.'
             message = render_to_string('projectMain/acc_active_email.html', {
@@ -119,16 +152,47 @@ def forgotpw(request):
 def logout(request):
     return logout_then_login(request, reverse('sign-in'))
 
-# def auth(request):
-#     if request.method == 'POST':
-#         user = authenticate(username=request.username, password= request.password)
-#         if user is not None:
-#             dump = json.dumps(user)
-#             return HttpResponse(dump, content_type='application/json')
-#         else:
-#             html = "<html><body>No User Found</body></html>"
-#             return HttpResponse(html)
+logger = logging.getLogger(__name__)
+
+def auth(request):
+    if request.method == 'POST':
+        uname = request.headers.get('Username')
+        pword = request.headers.get('Password')
+
+        # logger.error(uname)
+        # logger.error(pword)
+        # logger.error(request.POST)
+        # logger.error(request.headers)
+        # logger.error(request.body)
+        user = authenticate(username=uname, password=pword)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponse(json.dumps({"message": "LOGIN_SUCCESS"}), content_type="application/json")
+            else:
+                return HttpResponse(json.dumps({"message": "inactive"}), content_type="application/json")
+        else:
+            return HttpResponse(json.dumps({"message": "invalid"}), content_type="application/json")
+    return HttpResponse('')
 
 
 
 
+def addPatient(request):
+
+    return render(request,'projectMain/patient-profile.html')
+
+
+def addClinic(request):
+    if request.method == 'POST':
+        cform = clinicForm(request.POST, instance=request.user.account)
+        if cform.is_valid():
+            logger.error(request.POST)
+            logger.error(request.user.account)
+            cform.save()
+            logger.error(cform)
+            return redirect('dashboard')
+    else:
+        cform = clinicForm()
+
+    return render(request,'projectMain/addClinic.html', {'cform': cform})

@@ -15,7 +15,7 @@ class Account(models.Model):
     #password = models.CharField(max_length=100)
     userName = models.OneToOneField(User, on_delete=models.CASCADE)
     #email_address = models.CharField(max_length=100)
-    accType = models.CharField(max_length=100,  default="")
+    #accType = models.CharField(max_length=100,  default="")
     lastname = models.CharField(max_length=100,  default="")
     firstname = models.CharField(max_length=100,  default="")
     middlename = models.CharField(max_length=100,  default="")
@@ -38,7 +38,15 @@ class Account(models.Model):
 
 class AccountType(models.Model):
     #account_type_id = models.AutoField(primary_key=True)
-    access = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default= None)
+    USER_TYPE_CHOICES = (
+        (1, 'Doctor'),
+        (2, 'Patient'),
+        (3, 'Laboratory Specialist'),
+        (4, 'Nurse'),
+        (5, 'Encoder'),
+    )
+    access = models.IntegerField(choices=USER_TYPE_CHOICES, default=0)
 
     def __str__(self):
         return f'{self.access} AccountType'
@@ -67,12 +75,18 @@ class Appointment(models.Model):
 
 
 class Clinic(models.Model):
-    clinic_id = models.AutoField(primary_key=True)
-    account_id = models.IntegerField()
+    #clinic_id = models.AutoField(primary_key=True)
+    account = models.ForeignKey(Account,on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    deleted = models.IntegerField()
-    timestamp = models.IntegerField()
+    deleted = models.IntegerField(default=0, blank=True)
+    timestamp = models.IntegerField(default=0, blank=True)
+    address = models.CharField(max_length=100, default="")
+    finished =models.IntegerField(default=0)
+    skipped = models.IntegerField(default=0)
+    cancelled = models.IntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.name} - {self.account}'
     class Meta:
         managed = True
         db_table = 'clinic'
@@ -405,10 +419,12 @@ class Medicine(models.Model):
 
 
 class Patient(models.Model):
-    patient_id = models.AutoField(primary_key=True)
-    account_id = models.IntegerField()
+    #patient_id = models.AutoField(primary_key=True)
+    userName = models.OneToOneField(User, on_delete=models.CASCADE)
+    #account_id = models.IntegerField()
     clinic_id = models.IntegerField()
-    doctor_id = models.IntegerField()
+    #doctor_id = models.IntegerField()
+    doctor = models.ManyToManyField(Account)
     lastname = models.CharField(max_length=100)
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100)
@@ -418,7 +434,7 @@ class Patient(models.Model):
     birthdate = models.CharField(max_length=100)
     birthplace = models.CharField(max_length=100)
     blood_type = models.CharField(max_length=100)
-    id_no = models.CharField(max_length=100)
+    id_no = models.CharField(max_length=100, default="")
     civil_status = models.CharField(max_length=100)
     nationality = models.CharField(max_length=100)
     religion = models.CharField(max_length=100)

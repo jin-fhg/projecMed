@@ -105,7 +105,8 @@
                                         <i class="material-icons">more_vert</i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li><a href="javascript:void(0);">Action</a></li>
+                                        <li><a href="{% url 'addclinic' %}" >Add Clinic</a></li>
+										<!--data-toggle="modal" data-target="#clinicmodal"-->
                                         <li><a href="javascript:void(0);">Another action</a></li>
                                         <li><a href="javascript:void(0);">Something else here</a></li>
                                     </ul>
@@ -120,25 +121,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+									{% for item in showclinic %}
 									<tr role="row" class="odd"><td class="sorting_1">
 
 											<div style="display: flex;">
 											  <img src="{% static 'projectMain/images/clinic.png' %}" width="48" height="48" title="Mediko Kapitolyo Multispecialty and Diagnostic Clinic" style="margin-right: 10px;display: block;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;border-radius: 50%;vertical-align: bottom !important;">
 											  <div class="text">
-												<strong>Mediko Kapitolyo Multispecialty and Diagnostic Clinic</strong>
-												<p style="margin: 0;">Lots 1,2,3 blk 2 marville, L. Sumulong Memorial Circle, Antipolo, 1870 Rizal</p>
+												<strong>{{ item.name }}</strong>
+												<p style="margin: 0;">{{ item.address }}</p>
 												<p style="margin: 0;">
 
-														<span title="Finished" style="display:inline-block;min-width: 60px;width: 60px;"><i class="material-icons col-blue">done</i><span style="font-size:1.2em">120</span></span>
-														<span title="Skipped" style="display:inline-block;min-width: 60px;width: 60px;"><i class="material-icons col-red">folder_open</i><span style="font-size:1.2em">143</span></span>
-														<span title="Cancelled" style="display:inline-block;min-width: 60px;width: 60px;"><i class="material-icons col-amber">warning</i><span style="font-size:1.2em">110</span></span>
+														<span title="Finished" style="display:inline-block;min-width: 60px;width: 60px;"><i class="material-icons col-blue">done</i><span style="font-size:1.2em">{{ item.finished }}</span></span>
+														<span title="Skipped" style="display:inline-block;min-width: 60px;width: 60px;"><i class="material-icons col-red">folder_open</i><span style="font-size:1.2em">{{ item.skipped }}</span></span>
+														<span title="Cancelled" style="display:inline-block;min-width: 60px;width: 60px;"><i class="material-icons col-amber">warning</i><span style="font-size:1.2em">{{ item.cancelled }}</span></span>
 
 												</p>
 											  </div>
 											</div>
 
 									</td></tr>
-									<tr role="row" class="even"><td class="sorting_1">
+									{% endfor %}
+									<!--<tr role="row" class="even"><td class="sorting_1">
 
 											<div style="display: flex;">
 											  <img src="images/clinic.png" width="48" height="48" title="Mediko Kapitolyo Multispecialty and Diagnostic Clinic" style="margin-right: 10px;display: block;-webkit-border-radius: 50%;-moz-border-radius: 50%;-ms-border-radius: 50%;border-radius: 50%;vertical-align: bottom !important;">
@@ -156,7 +159,7 @@
 											</div>
 
 
-									</td></tr>
+									</td></tr>-->
                                     </tbody>
                                 </table>
                         </div>
@@ -165,6 +168,27 @@
             </div>
             <!-- #END# CPU Usage -->
      </section>
+   	<!--Modal-->
+	  <div class="modal fade" id="clinicmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<form method="POST" enctype="multipart/form-data" id="uploadclinic">
+             {% csrf_token %}
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabelClinic">Add Clinic</h5>
+			  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">×</span>
+			  </button>
+			</div>
+			<div class="modal-body">{{ cform.as_p }}</div>
+			<div class="modal-footer">
+			  <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+			  <button class="btn btn-primary"  type = "submit" name="clinicbtn">Submit</button>
 
+			</div>
+			</form>
+		  </div>
+		</div>
+	  </div>
 
 {% endblock content %}

@@ -30,7 +30,8 @@ urlpatterns = [
     path('appointments/', mainView.appointment, name='appointment'),
     path('patients/', mainView.patients, name='patients'),
     path('profile/',mainView.profile, name='profile'),
-    path('sign-in/', authviews.LoginView.as_view(template_name='projectMain/sign-in.html', authentication_form= LoginForm), name = 'sign-in'),
+    #path('sign-in/', authviews.LoginView.as_view(template_name='projectMain/sign-in.html', authentication_form= LoginForm), name = 'sign-in'),
+    path('sign-in/', mainView.signin, name='sign-in'),
     path('logout', mainView.logout, name = 'logout'),
     path('sign-up/', mainView.signup, name='sign-up'),
     path('forgot-password/', authviews.PasswordResetView.as_view(template_name='projectMain/forgot-password.html'), name='forgotpw'),
@@ -42,7 +43,9 @@ urlpatterns = [
          authviews.PasswordResetCompleteView.as_view(template_name='projectMain/password_reset_complete.html'),
          name='password_reset_complete'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',mainView.activate, name='activate'),
-    #path('auth/', mainView.auth, name = 'auth')
+    path('add-patient/', mainView.addPatient, name= 'addpatient'),
+    path('add-clinic/', mainView.addClinic, name = 'addclinic'),
+    path('auth/', mainView.auth, name = 'auth')
 
 ]
 
